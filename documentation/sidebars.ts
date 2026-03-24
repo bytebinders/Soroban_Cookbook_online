@@ -33,6 +33,7 @@ const sidebars: SidebarsConfig = {
       label: 'Patterns',
       items: [
         'patterns/overview',
+        'patterns/hello-world',
       ],
     },
     {

@@ -1,0 +1,70 @@
+/**
+ * Search (/search) — local Lunr plugin from @easyops-cn/docusaurus-search-local.
+ * Uses stable DOM hooks: main container, search input, and result articles.
+ */
+
+main .container.margin-vert--lg {
+  max-width: 48rem;
+}
+
+main .container.margin-vert--lg > h1 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 1.25rem;
+}
+
+main .container.margin-vert--lg input[type='search'],
+main .container.margin-vert--lg input[name='q'] {
+  border-radius: var(--ifm-global-radius);
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--ifm-color-content-secondary);
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+main .container.margin-vert--lg input[type='search']:focus,
+main .container.margin-vert--lg input[name='q']:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 3px rgba(46, 133, 85, 0.25);
+}
+
+/* Result rows: plugin renders <article> per hit */
+main .container.margin-vert--lg section article {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--ifm-border-color);
+  border-radius: 0;
+}
+
+main .container.margin-vert--lg section article:last-child {
+  border-bottom: none;
+}
+
+main .container.margin-vert--lg section article h2 {
+  font-size: 1.15rem;
+  margin-bottom: 0.35rem;
+}
+
+main .container.margin-vert--lg section article a {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+main .container.margin-vert--lg section article a:hover {
+  text-decoration: underline;
+}
+
+/* Filter row (docs context) */
+main .container.margin-vert--lg select[name='search-context'] {
+  border-radius: var(--ifm-global-radius);
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+}
+
+@media screen and (max-width: 996px) {
+  main .container.margin-vert--lg .row {
+    flex-direction: column;
+  }
+}

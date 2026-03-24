@@ -17,6 +17,11 @@ const config: Config = {
   organizationName: 'Soroban-Cookbook',
   projectName: 'Soroban-Cookbook-',
 
+  customFields: {
+    /** POST endpoint accepting JSON `{ "email": string }`. Set via env at build time for real integrations. */
+    newsletterEndpoint: process.env.NEWSLETTER_ENDPOINT ?? '',
+  },
+
   onBrokenLinks: 'throw',
 
   i18n: {
@@ -32,7 +37,7 @@ const config: Config = {
     },
   ],
 
-  // Meta tags for theme color
+  // Meta tags for theme color + social previews (see CONTRIBUTING — SEO & social metadata)
   headTags: [
     {
       tagName: 'meta',
@@ -41,6 +46,70 @@ const config: Config = {
         content: '#1e1e2e',
       },
     },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:type',
+        content: 'website',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:site_name',
+        content: 'Soroban Cookbook',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:image',
+        content: 'https://soroban-cookbook.dev/img/soroban-social-card.png',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:image:width',
+        content: '1200',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:image:height',
+        content: '630',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'twitter:card',
+        content: 'summary_large_image',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'twitter:image',
+        content: 'https://soroban-cookbook.dev/img/soroban-social-card.png',
+      },
+    },
+  ],
+
+  plugins: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        language: ['en'],
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+        indexDocs: true,
+        indexPages: true,
+        indexBlog: false,
+      },
+    ],
   ],
 
   presets: [
@@ -54,14 +123,19 @@ const config: Config = {
         },
         blog: false,
         theme: {
-          customCss: ['./src/css/custom.css', './src/css/breakpoints.css', './src/css/design-tokens.css'],
+          customCss: [
+            './src/css/custom.css',
+            './src/css/breakpoints.css',
+            './src/css/design-tokens.css',
+            './src/css/search-experience.css',
+          ],
         },
       } satisfies Preset.Options,
     ],
   ],
 
   themeConfig: {
-    image: 'img/soroban-social-card.jpg',
+    image: 'img/soroban-social-card.png',
     colorMode: {
       defaultMode: 'dark',
       respectPrefersColorScheme: true,

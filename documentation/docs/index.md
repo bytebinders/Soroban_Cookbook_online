@@ -1,3 +1,10 @@
+---
+sidebar_position: 1
+title: Welcome
+description: Your comprehensive guide to building smart contracts on Stellar with Soroban — patterns, tutorials, and best practices.
+image: /img/soroban-social-card.png
+---
+
 # Welcome to Soroban Cookbook
 
 Your comprehensive guide to building smart contracts on Stellar.

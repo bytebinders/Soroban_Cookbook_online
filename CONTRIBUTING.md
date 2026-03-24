@@ -58,6 +58,36 @@ npm install
 npm start
 ```
 
+### Documentation site (SEO, newsletter, search, patterns)
+
+#### SEO and social preview metadata
+
+- Global defaults live in `documentation/docusaurus.config.ts` (`themeConfig.image` and `headTags` for Open Graph and Twitter).
+- Per-page overrides: add frontmatter to any doc page:
+
+```yaml
+---
+description: Short summary for link previews
+image: /img/soroban-social-card.png
+---
+```
+
+- After deployment, validate sharing cards with tools such as [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) or [opengraph.xyz](https://www.opengraph.xyz/).
+
+#### Newsletter signup
+
+- The homepage form uses `customFields.newsletterEndpoint`, set from the `NEWSLETTER_ENDPOINT` environment variable at build time.
+- Configure any HTTPS endpoint that accepts `POST` with JSON `{ "email": string }`. If unset, the form still validates email client-side and completes with a demo-friendly success state.
+
+#### Search
+
+- Site search uses `@easyops-cn/docusaurus-search-local` (Lunr index, `/search` page). Styles for results and the query field are in `documentation/src/css/search-experience.css`.
+
+#### Pattern page template
+
+- Reusable MDX components: `PatternMeta`, `PatternSection`, and `PatternCallout` (see `documentation/src/theme/MDXComponents.tsx`).
+- Canonical example: `documentation/docs/patterns/hello-world.mdx` — copy its structure for new patterns.
+
 ### Adding a New Pattern
 
 Each pattern should follow this structure:

@@ -1,4 +1,5 @@
 import Link from '@docusaurus/Link';
+import NewsletterSignup from '@site/src/components/NewsletterSignup';
 import PatternPreview, { Pattern } from '@site/src/components/PatternPreview';
 import Layout from '@theme/Layout';
 import Stats from '@site/src/components/Stats';
@@ -172,6 +173,7 @@ export default function Home() {
         enableCarousel={true}
       />
       <Stats />
+      <NewsletterSignup />
     </Layout>
   );
 }
