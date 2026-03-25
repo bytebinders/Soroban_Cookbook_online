@@ -5,8 +5,16 @@
 
 :root {
   /* ══════════════════════════════════════════════════════════════════════
-     COLOR PALETTE
-     ══════════════════════════════════════════════════════════════════════ */
+      LOADING STATE TOKENS (Consolidated for #39)
+      ══════════════════════════════════════════════════════════════════════ */
+  --loading-bg-light: var(--color-gray-200);
+  --loading-bg-dark: var(--color-gray-800);
+  --loading-shimmer: rgba(255, 255, 255, 0.4);
+  --loading-duration: 2s;
+
+  /* ══════════════════════════════════════════════════════════════════════
+      COLOR PALETTE
+      ══════════════════════════════════════════════════════════════════════ */
 
   /* Primary Colors - Stellar/Soroban Blue */
   --color-primary-50: #eff6ff;
@@ -82,8 +90,8 @@
   --color-gray-950: #030712;
 
   /* ══════════════════════════════════════════════════════════════════════
-     SPACING SCALE
-     ══════════════════════════════════════════════════════════════════════ */
+      SPACING SCALE
+      ══════════════════════════════════════════════════════════════════════ */
 
   --space-0: 0;
   --space-1: 0.25rem; /* 4px */
@@ -101,8 +109,8 @@
   --space-32: 8rem; /* 128px */
 
   /* ══════════════════════════════════════════════════════════════════════
-     TYPOGRAPHY
-     ══════════════════════════════════════════════════════════════════════ */
+      TYPOGRAPHY
+      ══════════════════════════════════════════════════════════════════════ */
 
   /* Font Families */
   --font-family-sans:
@@ -147,8 +155,8 @@
   --letter-spacing-widest: 0.1em;
 
   /* ══════════════════════════════════════════════════════════════════════
-     BORDER RADIUS
-     ══════════════════════════════════════════════════════════════════════ */
+      BORDER RADIUS
+      ══════════════════════════════════════════════════════════════════════ */
 
   --radius-none: 0;
   --radius-sm: 0.125rem; /* 2px */
@@ -161,8 +169,8 @@
   --radius-full: 9999px;
 
   /* ══════════════════════════════════════════════════════════════════════
-     SHADOWS
-     ══════════════════════════════════════════════════════════════════════ */
+      SHADOWS
+      ══════════════════════════════════════════════════════════════════════ */
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
@@ -173,8 +181,8 @@
   --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
 
   /* ══════════════════════════════════════════════════════════════════════
-     Z-INDEX SCALE
-     ══════════════════════════════════════════════════════════════════════ */
+      Z-INDEX SCALE
+      ══════════════════════════════════════════════════════════════════════ */
 
   --z-index-dropdown: 1000;
   --z-index-sticky: 1020;
@@ -185,8 +193,8 @@
   --z-index-tooltip: 1070;
 
   /* ══════════════════════════════════════════════════════════════════════
-     TRANSITIONS & ANIMATIONS
-     ══════════════════════════════════════════════════════════════════════ */
+      TRANSITIONS & ANIMATIONS
+      ══════════════════════════════════════════════════════════════════════ */
 
   --transition-fast: 150ms;
   --transition-base: 200ms;
@@ -198,8 +206,8 @@
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* ══════════════════════════════════════════════════════════════════════
-     CONTAINER & LAYOUT
-     ══════════════════════════════════════════════════════════════════════ */
+      CONTAINER & LAYOUT
+      ══════════════════════════════════════════════════════════════════════ */
 
   --container-sm: 640px;
   --container-md: 768px;
@@ -212,11 +220,25 @@
   --gutter-md: 1.5rem; /* 24px */
   --gutter-lg: 2rem; /* 32px */
   --gutter-xl: 3rem; /* 48px */
+
+  /* Default semantic colors */
+  --color-text-primary: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-700);
+  --color-text-tertiary: var(--color-gray-500);
+  --color-text-inverse: var(--color-gray-50);
+
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: var(--color-gray-50);
+  --color-bg-tertiary: var(--color-gray-100);
+
+  --color-border-light: var(--color-gray-200);
+  --color-border-medium: var(--color-gray-300);
+  --color-border-strong: var(--color-gray-400);
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   DARK MODE TOKENS
-   ══════════════════════════════════════════════════════════════════════ */
+    DARK MODE TOKENS
+    ══════════════════════════════════════════════════════════════════════ */
 
 [data-theme='dark'] {
   /* Primary Colors - Lighter variants for dark mode */
@@ -300,29 +322,7 @@
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.45), 0 8px 10px -6px rgba(0, 0, 0, 0.45);
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.15);
-}
 
-/* ══════════════════════════════════════════════════════════════════════
-   SEMANTIC COLOR ALIASES (for easier usage in components)
-   ══════════════════════════════════════════════════════════════════════ */
-
-:root {
-  /* Default semantic colors */
-  --color-text-primary: var(--color-gray-900);
-  --color-text-secondary: var(--color-gray-700);
-  --color-text-tertiary: var(--color-gray-500);
-  --color-text-inverse: var(--color-gray-50);
-
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: var(--color-gray-50);
-  --color-bg-tertiary: var(--color-gray-100);
-
-  --color-border-light: var(--color-gray-200);
-  --color-border-medium: var(--color-gray-300);
-  --color-border-strong: var(--color-gray-400);
-}
-
-[data-theme='dark'] {
   /* Dark mode semantic colors */
   --color-text-primary: var(--color-gray-50);
   --color-text-secondary: var(--color-gray-300);
