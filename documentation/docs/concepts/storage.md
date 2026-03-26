@@ -23,6 +23,7 @@ Soroban contracts store state in ledger-backed storage. Designing storage carefu
 
 ## Next
 
+- [Security Fundamentals](../security/fundamentals.md)
 - [Authorization](./authorization.md)
 - [Events](./events.md)
 - [First Contract Walkthrough](../getting-started/first-contract.md)

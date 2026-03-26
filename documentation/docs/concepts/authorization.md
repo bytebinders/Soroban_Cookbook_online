@@ -23,5 +23,6 @@ Authorization in Soroban ensures only expected identities can execute sensitive 
 
 ## Next
 
+- [Security Fundamentals](../security/fundamentals.md)
 - [Storage Patterns](./storage.md)
 - [Events](./events.md)

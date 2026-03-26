@@ -38,6 +38,13 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'Security',
+      items: [
+        'security/fundamentals',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Design System',
       items: [
         'design-system/buttons',
