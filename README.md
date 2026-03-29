@@ -27,10 +27,10 @@ A user-friendly documentation website for the [Soroban Cookbook](https://github.
 cd documentation
 
 # Install dependencies
-bun install
+bun install  # (fallback: npm install)
 
 # Start development server
-bun start
+bun start    # (fallback: npm start)
 ```
 
 Visit `http://localhost:3000` to view the site.
@@ -62,15 +62,24 @@ Soroban_Cookbook_online/
 
 ### Available Scripts
 
+#### Recommended (Bun)
 ```bash
 bun start          # Start dev server
 bun run build      # Build for production
 bun run serve      # Serve production build
 bun run typecheck  # Run TypeScript checks
-bun run lint       # Lint code with ESLint
-bun run lint:fix   # Fix linting issues
-bun run format     # Format code with Prettier
-bun run format:check # Check formatting
+bun run lint       # Lint code
+bun run format     # Format code
+```
+
+#### Alternative (npm)
+```bash
+npm start          # Start dev server
+npm run build      # Build for production
+npm run serve      # Serve production build
+npm run typecheck  # Run TypeScript checks
+npm run lint       # Lint code
+npm run format     # Format code
 ```
 
 ### Adding Content
@@ -116,8 +125,11 @@ Before pushing, run these commands:
 
 ```bash
 cd documentation
-bun install --frozen-lockfile
-bun run format:check && bun run lint && bun run typecheck && bun run build
+# Recommended
+bun install && bun run format:check && bun run lint && bun run typecheck && bun run build
+
+# Alternative
+npm install && npm run format:check && npm run lint && npm run typecheck && npm run build
 ```
 
 ## 🚢 Deployment
@@ -167,15 +179,14 @@ For the GitHub Actions deployment to work, ensure the following settings are con
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how:
+We welcome contributions of all kinds! Whether you're fixing a typo, adding a new contract pattern, or improving the UI, your help is appreciated.
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test locally
-5. Submit a pull request
+To get started, please read our **[Contributing Guide](https://soroban-cookbook.com/docs/contributing)** for detailed instructions on:
+- Setting up your local development environment.
+- Branching and pull request conventions.
+- Pre-submission validation steps.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+We also have a [Pull Request Template](.github/pull_request_template.md) to help you structure your submissions.
 
 ## 🎨 Design System
 

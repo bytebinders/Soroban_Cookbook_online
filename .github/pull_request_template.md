@@ -1,0 +1,36 @@
+# Pull Request Template
+
+## Description
+Provide a clear description of the changes you've made. Explain why you're proposing these changes and link to any relevant issues.
+
+## Type of Change
+Select the appropriate type of change:
+- [ ] 🚀 New Feature (contracts, patterns, guides)
+- [ ] 🐛 Bug Fix
+- [ ] 📝 Documentation Update
+- [ ] 🎨 UI/UX Improvement
+- [ ] 🛠️ Maintenance / Refactor
+
+## How Has This Been Tested?
+Explain how you verified your changes. Include any relevant commands or environment details.
+- [ ] Locally rendered using `bun start` (or `npm start`)
+- [ ] Ran `bun run build` (or `npm run build`) successfully
+- [ ] Verified [typecheck/lint/format] in `documentation/`
+- [ ] [If code] Ran `cargo test` and `cargo check`
+
+## Screenshots (if applicable)
+Add any screenshots or recordings of UI changes here.
+
+## Checklist
+Before submitting, please ensure you've checked these off:
+- [ ] My code follows the project's code style.
+- [ ] I have performed a self-review of my code.
+- [ ] I have commented my code where necessary.
+- [ ] I have updated the documentation accordingly.
+- [ ] My changes generate no new warnings.
+- [ ] New and existing tests pass locally.
+- [ ] I have checked my code runs on the latest Soroban SDK.
+
+---
+
+**Thank you for your contribution! 🚀**
