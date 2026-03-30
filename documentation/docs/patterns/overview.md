@@ -16,6 +16,18 @@ The **[Hello World storage](/docs/patterns/hello-world)** pattern demonstrates t
 
 Browse battle-tested contract patterns for various use cases.
 
+### [Hello World Storage](/docs/patterns/hello-world)
+
+**Difficulty**: Beginner | **Category**: Storage | **Status**: Stable
+
+Minimal Soroban contract demonstrating instance storage. Perfect starting point for understanding contract structure and basic storage operations.
+
+### [Error Recovery](/docs/patterns/error-recovery)
+
+**Difficulty**: Intermediate | **Category**: Error Handling | **Status**: Stable
+
+Comprehensive error handling patterns including Result types, fallback logic, graceful degradation, transaction rollback, and input validation. Essential for production-ready contracts.
+
 ## Pattern Categories
 
 ### 🪙 Token Standards
