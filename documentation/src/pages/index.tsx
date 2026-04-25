@@ -3,6 +3,7 @@ import NewsletterSignup from '@site/src/components/NewsletterSignup';
 import PatternPreview, { Pattern } from '@site/src/components/PatternPreview';
 import Layout from '@theme/Layout';
 import Stats from '@site/src/components/Stats';
+import Testimonials from '@site/src/components/UI/Testimonials';
 import styles from './index.module.css';
 import React, { useState, useEffect } from 'react';
 import { Skeleton, Spinner } from '@site/src/components/Loading';
@@ -212,6 +213,7 @@ export default function Home() {
       </div>
 
       <NewsletterSignup />
+      <Testimonials />
     </Layout>
   );
 }
