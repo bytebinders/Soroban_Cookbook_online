@@ -7,6 +7,9 @@
  * 2. Component-specific styles should stay in .module.css files.
  */
 
+/* Issue #40: Mobile menu polish */
+@import './mobile-menu.css';
+
 /* ── Light Mode (Default) ───────────────────────────────────────────────────── */
 
 :root {
