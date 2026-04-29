@@ -1,43 +1,43 @@
-# Documentation: Contract Optimization Playbook
+# Documentation: Contract Lifecycle, Versioning, and Upgrade Safety
 
 ## Session Manifest
-You are an expert smart contract engineer and technical writer. You write performance-focused guides that turn vague "optimize it" advice into repeatable, measurable workflows. You favor concrete numbers, copy-pasteable commands, and before/after comparisons over generic platitudes. You must follow the **Plan → Review → Execute** workflow.
+You are an expert smart contract engineer and technical writer. You write authoritative, safety-critical documentation that treats contract upgrades as irreversible operations requiring rigorous checks. You favor explicit governance rules, checklists, and step-by-step procedures over vague advice. You must follow the **Plan → Review → Execute** workflow.
 
 ## Global Constraints
-- **NEVER** push to `main` directly. Branch: `docs/contract-optimization-playbook`.
-- **NEVER** commit secrets, credentials, or benchmark artifacts.
+- **NEVER** push to `main` directly. Branch: `docs/contract-lifecycle-guide`.
+- **NEVER** commit secrets, deployment keys, or environment-specific configuration.
 - Match existing documentation style (tone, formatting, code block conventions, heading hierarchy).
-- All code examples, benchmark commands, and profiling steps must be verified against the project's current contract SDK and toolchain.
-- Cite or link to relevant source files where anti-patterns already exist or have been fixed in the codebase.
+- All procedural examples, CLI commands, and migration code must be verified against the project's current contract SDK and deployment pipeline.
+- Cite or link to relevant source files where upgrade patterns or governance logic already exists.
 - Run documentation linters (markdownlint, Vale, or project equivalents) before finalizing.
 
 ## Mandatory Workflow
-1. **Discover**: Read the issue, existing contract source files, current SDK tooling (CLI, RPC, sandbox), and any existing performance-related docs.
+1. **Discover**: Read the issue, existing deployment scripts, upgrade utilities, contract versioning patterns, and any current ops runbooks.
 2. **Propose**: Post a detailed outline and **STOP** for maintainer review.
 3. **Execute**: Only after receiving explicit "approved" or "LGTM".
-4. **Validate**: Verify all commands and examples work in the local environment; paste a summary.
+4. **Validate**: Verify all commands, scripts, and examples work in the local or testnet environment; paste a summary.
 5. **Deliver**: Open a PR with `Closes #<issue-number>` and full verification steps.
 
 ---
 
 ## Issue Context
 - **Type**: Documentation
-- **Area**: Smart Contract Engineering / Performance
-- **Complexity**: Medium-High
-- **Impact**: Contributor efficiency and contract runtime cost reduction
+- **Area**: Smart Contract Operations / DevOps / Governance
+- **Complexity**: High
+- **Impact**: Deployment safety, operational continuity, and protocol trust
 
 ### Objective
-Author a practical optimization playbook that teaches contributors how to profile, benchmark, and improve contract performance systematically.
+Create comprehensive lifecycle documentation covering deployment, versioning, migration, and upgrade safety for contracts.
 
 ### Scope
-- **Profiling and optimization workflow**: A repeatable loop from measurement to validation.
-- **Benchmark methodology**: How to establish baselines, control variables, and interpret results.
-- **Baseline metrics**: What numbers to capture before optimization begins.
-- **Common performance anti-patterns**: Specific patterns to avoid, with before/after code examples.
-- **Measurable improvements**: Every optimization technique must show how to prove it worked.
+- **Lifecycle phases**: From development and staging to production deployment and deprecation.
+- **Governance concerns**: Who authorizes deployments, upgrades, and emergency actions.
+- **Upgrade and migration patterns**: How to evolve contract logic and state safely.
+- **Risks**: What can go wrong during each phase and how to mitigate it.
+- **Rollback and compatibility strategies**: How to recover from bad deployments and maintain interoperability.
 
 ### Audience
-Contributors who can write functional contracts but need guidance on making them efficient and cost-effective.
+Developers, DevOps engineers, and protocol governors responsible for deploying and maintaining contracts in production.
 
 ---
 
@@ -45,50 +45,60 @@ Contributors who can write functional contracts but need guidance on making them
 
 Before writing, present a detailed outline covering:
 
-1. **Guide Structure**
-   - Proposed table of contents with heading hierarchy.
-   - Estimated length and reading time.
-   - Placement in the documentation tree (file path, sidebar position).
+1. **Lifecycle Model**
+   - Phases you will define (e.g., Build, Audit, Staging, Production, Monitor, Deprecate).
+   - Entry and exit criteria for each phase.
+   - Environment strategy (local, testnet, futurenet, mainnet).
 
-2. **Optimization Loop Definition**
-   - The repeatable workflow you will document:
-     - How to capture a baseline measurement.
-     - How to identify the bottleneck.
-     - How to apply a targeted change.
-     - How to re-measure and compare.
-   - Tools and commands for each step.
+2. **Governance Framework**
+   - Who controls deployment keys, upgrade authority, and parameter changes.
+   - Multi-signature requirements, timelocks, or DAO voting where applicable.
+   - Emergency procedures (pause, freeze, governance override).
 
-3. **Benchmark Methodology**
-   - How to write a contract benchmark (test structure, transaction scenarios).
-   - How to control for network conditions, ledger state, and compilation settings.
-   - What metrics to collect (CPU instructions, memory usage, transaction size, gas cost).
-   - How to store and compare benchmark results over time.
+3. **Deployment Procedures**
+   - Step-by-step deployment checklist.
+   - Pre-deployment validation (build verification, bytecode hash checks, initialization arguments).
+   - Post-deployment verification (contract state, entry points, event emission).
 
-4. **Baseline Metrics Inventory**
-   - Standard metrics contributors should record before optimizing:
-     - Contract Wasm size.
-     - Typical transaction cost (CPU, memory, entry reads/writes).
-     - Cold vs. warm invocation costs.
-   - Where to find these numbers in the project's tooling output.
+4. **Versioning Strategy**
+   - How contract versions are tracked (semantic versioning, storage version fields, build metadata).
+   - Where version information is stored and how it is queried.
+   - Compatibility matrix between contract versions and client SDKs.
 
-5. **Performance Anti-Patterns**
-   - List of anti-patterns you will cover (e.g., unbounded storage iteration, redundant deserialization, inefficient data structures, unnecessary cross-contract calls).
-   - For each: the bad pattern, why it hurts, the optimized alternative, and a before/after code example with expected metric delta.
+5. **Upgrade Patterns**
+   - Upgrade mechanisms available in the platform (if any): proxy patterns, migration functions, or immutable redeploy with pointer updates.
+   - For each pattern: when to use it, when to avoid it, and the exact procedure.
+   - State preservation guarantees and data structure evolution rules.
 
-6. **Measurable Improvements Framework**
-   - How every example in the playbook demonstrates improvement (percentage reduction, absolute cost savings).
-   - Whether to include a "cost calculator" helper or reference table.
-   - How contributors should document their own optimizations in PRs.
+6. **Migration Patterns**
+   - How to transform existing on-chain state during an upgrade.
+   - Lazy vs. eager migration strategies.
+   - Migration code examples (storage iteration, field remapping, state compression).
+   - Handling of migration failures and partial completion.
 
-7. **Tooling & Environment**
-   - SDK-specific profiling tools (e.g., `soroban-cli` cost simulation, RPC simulation endpoints, ledger entry inspection).
-   - External tools if applicable (Wasm analyzers, flamegraph generators).
-   - Required environment setup and versions.
+7. **Safety Checks**
+   - Pre-upgrade checklists (storage compatibility, balance invariants, access control integrity).
+   - Simulation and dry-run procedures before executing on mainnet.
+   - Post-upgrade assertions (smoke tests, invariant checks, event verification).
+   - How to monitor for anomalies after deployment.
 
-8. **Validation Strategy (Docs)**
-   - How you will verify all commands run successfully (local execution, CI doc tests, or manual QA).
-   - How you will verify benchmark examples produce the stated results.
-   - Target readability score or linting rules.
+8. **Rollback and Recovery**
+   - Rollback strategies when upgrades fail or introduce critical bugs.
+   - Immutable fallback options (previous contract version, emergency pause).
+   - Compatibility strategies: how to ensure old clients work during transition periods.
+
+9. **Concrete Scenarios**
+   - 3–5 documented migration/upgrade scenarios with examples:
+     - Adding a new state field.
+     - Changing a data type in storage.
+     - Splitting a monolithic contract.
+     - Deprecating a feature with state cleanup.
+     - Emergency rollback after a failed upgrade.
+
+10. **Validation Strategy (Docs)**
+    - How you will verify all CLI commands and deployment scripts execute correctly.
+    - How you will test migration code examples in a sandbox or testnet.
+    - Target readability score or linting rules.
 
 ---
 
@@ -96,31 +106,31 @@ Before writing, present a detailed outline covering:
 
 After plan approval:
 
-- [ ] Draft the playbook with a clearly defined, repeatable optimization loop.
-- [ ] Provide benchmark methodology with baseline metrics contributors should capture.
-- [ ] Document common performance anti-patterns with before/after code examples.
-- [ ] Ensure every optimization example demonstrates measurable improvement.
-- [ ] Make guidance actionable: contributors should know exactly what to run and what to change.
+- [ ] Draft the lifecycle guide with clear, actionable phases and governance rules.
+- [ ] Document upgrade and migration patterns with explicit risk analysis for each.
+- [ ] Include safety checklists before, during, and after upgrades.
+- [ ] Document rollback strategies and compatibility guarantees.
+- [ ] Provide concrete migration scenarios with code or procedural examples.
+- [ ] Ensure every procedure is reproducible by a contributor with project access.
 - [ ] Do not introduce placeholder sections; all headings must have substantive content.
 - [ ] Do not couple unrelated concepts into this PR.
 - [ ] PR description must include:
   - `Closes #<issue-number>`
-  - Table of contents of the final playbook
-  - Validation steps confirming all commands and examples execute correctly
-  - Any new dev-dependencies or scripts added for benchmarking
+  - Table of contents of the final guide
+  - Validation steps confirming commands and scripts execute correctly
+  - Any new dev-dependencies or scripts added for documentation testing
 
 ## Suggested Validation
 
 Run these and include a summary in the PR:
 
 ```bash
-# If examples include contract build/test commands
-cargo build --release --target wasm32-unknown-unknown
-soroban contract build  # or project-specific CLI
+# If examples include deployment or upgrade commands
+soroban contract deploy --network testnet  # or project-specific CLI
+soroban contract invoke --network testnet  # for smoke tests
 
-# If examples include benchmark tests
-cargo test --release -- bench
-# or project-specific benchmark runner
+# If examples include build/compile steps
+cargo build --release --target wasm32-unknown-unknown
 
 # Documentation linting
 vale docs/
@@ -129,28 +139,27 @@ markdownlint docs/
 ```
 
 For manual review:
-- Execute every CLI command in the playbook and confirm the output matches what is documented.
-- Run at least one before/after benchmark pair and verify the delta is reproducible.
-- Confirm all cross-references to existing contract source files are accurate.
+- Walk through the deployment checklist in the guide on testnet and confirm each step matches reality.
+- Verify all migration code examples compile and execute in a local sandbox.
+- Confirm all governance procedures align with the project's actual key management setup.
 
 ## Acceptance Criteria
-- [ ] Playbook includes a repeatable optimization loop.
-- [ ] Examples demonstrate measurable improvements with before/after comparisons.
-- [ ] Guidance is actionable for contributors (commands to run, files to modify, metrics to watch).
-- [ ] Benchmark methodology and baseline metrics are clearly documented.
-- [ ] Common performance anti-patterns are identified with concrete solutions.
+- [ ] Lifecycle model is clear and actionable.
+- [ ] Upgrade guidance includes safety checks and risk analysis.
+- [ ] Migration scenarios are documented with concrete examples.
+- [ ] Rollback and compatibility strategies are explicitly defined.
 - [ ] Implementation is complete and merge-ready (no placeholder sections).
 - [ ] Reviewer can verify behavior without guesswork.
 
 ## Commit Message
 ```
-docs: Add contract optimization playbook
+docs: Add contract lifecycle, versioning, and upgrade safety guide
 
-- Documents repeatable profiling and optimization workflow
-- Defines benchmark methodology and baseline metrics to capture
-- Catalogs common performance anti-patterns with before/after examples
-- Ensures every optimization shows measurable improvement
-- Provides actionable commands and tooling setup for contributors
+- Documents deployment phases, governance, and environment strategy
+- Defines upgrade and migration patterns with risk analysis
+- Includes safety checklists for pre, during, and post-upgrade
+- Documents rollback, recovery, and compatibility strategies
+- Provides concrete migration scenarios with reproducible examples
 
 Closes #<issue-number>
 ```
@@ -159,9 +168,10 @@ Closes #<issue-number>
 
 ## Context Discovery Checklist
 Before proposing your plan, confirm you have read:
-- [ ] Existing contract source files with known performance bottlenecks (or recent optimization PRs).
-- [ ] Current SDK/tooling documentation for profiling, simulation, or cost estimation.
-- [ ] Existing developer guides or README sections on testing, deployment, or performance.
-- [ ] Any benchmark or test infrastructure already in the project (benchmark harnesses, CI jobs).
-- [ ] Documentation style guide or template (heading conventions, code block labels, admonitions).
-- [ ] How the project measures contract costs today (simulation output, gas tables, ledger entry fees).
+- [ ] Existing deployment scripts, CI/CD pipelines, or infrastructure-as-code for contract releases.
+- [ ] Current contract source files showing upgrade hooks, version fields, or migration utilities.
+- [ ] Existing documentation on deployment, ops, or governance (READMEs, runbooks, ADRs).
+- [ ] Project key management and multi-sig setup (if documented).
+- [ ] SDK/tooling documentation for contract deployment, upgrade, and state inspection.
+- [ ] Documentation style guide or template (heading conventions, admonitions, code block labels).
+- [ ] Any past incident postmortems or upgrade retrospectives that should inform the guide.
