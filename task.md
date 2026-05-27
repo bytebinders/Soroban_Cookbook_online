@@ -1,43 +1,43 @@
-# Documentation: Designing Robust Custom Types in Contracts
+# Documentation: Contract Optimization Playbook
 
 ## Session Manifest
-You are an expert technical writer and smart contract engineer. You write clear, authoritative guides for intermediate developers that balance conceptual depth with practical, copy-pasteable examples. You favor explicit trade-off analysis over dogmatic rules. You must follow the **Plan → Review → Execute** workflow.
+You are an expert smart contract engineer and technical writer. You write performance-focused guides that turn vague "optimize it" advice into repeatable, measurable workflows. You favor concrete numbers, copy-pasteable commands, and before/after comparisons over generic platitudes. You must follow the **Plan → Review → Execute** workflow.
 
 ## Global Constraints
-- **NEVER** push to `main` directly. Branch: `docs/contract-types-guide`.
-- **NEVER** commit generated assets or draft files outside the final guide location.
+- **NEVER** push to `main` directly. Branch: `docs/contract-optimization-playbook`.
+- **NEVER** commit secrets, credentials, or benchmark artifacts.
 - Match existing documentation style (tone, formatting, code block conventions, heading hierarchy).
-- All code examples must compile against the project's current contract SDK version.
-- Cite or link to relevant source files where patterns are already used in the codebase.
+- All code examples, benchmark commands, and profiling steps must be verified against the project's current contract SDK and toolchain.
+- Cite or link to relevant source files where anti-patterns already exist or have been fixed in the codebase.
 - Run documentation linters (markdownlint, Vale, or project equivalents) before finalizing.
 
 ## Mandatory Workflow
-1. **Discover**: Read the issue, existing contract type definitions, serialization utilities, and current developer guides.
+1. **Discover**: Read the issue, existing contract source files, current SDK tooling (CLI, RPC, sandbox), and any existing performance-related docs.
 2. **Propose**: Post a detailed outline and **STOP** for maintainer review.
 3. **Execute**: Only after receiving explicit "approved" or "LGTM".
-4. **Validate**: Verify all code examples compile; paste a summary of the validation.
+4. **Validate**: Verify all commands and examples work in the local environment; paste a summary.
 5. **Deliver**: Open a PR with `Closes #<issue-number>` and full verification steps.
 
 ---
 
 ## Issue Context
 - **Type**: Documentation
-- **Area**: Developer Guides / Smart Contracts
-- **Complexity**: Medium
-- **Impact**: Contract reliability and developer onboarding quality
+- **Area**: Smart Contract Engineering / Performance
+- **Complexity**: Medium-High
+- **Impact**: Contributor efficiency and contract runtime cost reduction
 
 ### Objective
-Write a comprehensive guide that teaches intermediate developers how to design robust custom types and data structures in contracts.
+Author a practical optimization playbook that teaches contributors how to profile, benchmark, and improve contract performance systematically.
 
 ### Scope
-- **Modeling strategies**: How to translate domain concepts into contract storage types.
-- **Serialization implications**: How type choices affect contract size, gas costs, and cross-contract call compatibility.
-- **Common patterns**: Practical `struct` and `enum` designs with examples.
-- **Validation**: Defensive type design and input sanitization at the boundary.
-- **Migration considerations**: How to evolve types without breaking existing contract state.
+- **Profiling and optimization workflow**: A repeatable loop from measurement to validation.
+- **Benchmark methodology**: How to establish baselines, control variables, and interpret results.
+- **Baseline metrics**: What numbers to capture before optimization begins.
+- **Common performance anti-patterns**: Specific patterns to avoid, with before/after code examples.
+- **Measurable improvements**: Every optimization technique must show how to prove it worked.
 
 ### Audience
-Intermediate developers who understand basic contract syntax but need guidance on designing maintainable, efficient data layers.
+Contributors who can write functional contracts but need guidance on making them efficient and cost-effective.
 
 ---
 
@@ -46,40 +46,48 @@ Intermediate developers who understand basic contract syntax but need guidance o
 Before writing, present a detailed outline covering:
 
 1. **Guide Structure**
-   - Proposed table of contents with heading hierarchy (H2 sections, H3 subsections).
+   - Proposed table of contents with heading hierarchy.
    - Estimated length and reading time.
    - Placement in the documentation tree (file path, sidebar position).
 
-2. **Code Examples Inventory**
-   - List of every code example you will include (e.g., "Basic struct with derives," "Enum with state machine pattern," "Nested type with manual serialization").
-   - For each, note whether it already exists in the codebase or must be drafted fresh.
+2. **Optimization Loop Definition**
+   - The repeatable workflow you will document:
+     - How to capture a baseline measurement.
+     - How to identify the bottleneck.
+     - How to apply a targeted change.
+     - How to re-measure and compare.
+   - Tools and commands for each step.
 
-3. **Modeling Strategies**
-   - How you will explain the storage-vs-memory distinction.
-   - How you will demonstrate mapping domain entities to contract types (value objects, aggregates, state machines).
+3. **Benchmark Methodology**
+   - How to write a contract benchmark (test structure, transaction scenarios).
+   - How to control for network conditions, ledger state, and compilation settings.
+   - What metrics to collect (CPU instructions, memory usage, transaction size, gas cost).
+   - How to store and compare benchmark results over time.
 
-4. **Serialization Deep Dive**
-   - How type choices affect XDR/contract serialization size.
-   - When to use derived vs. manual `Serialize`/`Deserialize` implementations.
-   - How to handle backward-compatible schema evolution (versioned enums, optional fields, migration wrappers).
+4. **Baseline Metrics Inventory**
+   - Standard metrics contributors should record before optimizing:
+     - Contract Wasm size.
+     - Typical transaction cost (CPU, memory, entry reads/writes).
+     - Cold vs. warm invocation costs.
+   - Where to find these numbers in the project's tooling output.
 
-5. **Struct/Enum Patterns**
-   - Common patterns you will cover (newtype wrappers for safety, state-machine enums, error types, config structs).
-   - For each pattern: when to use it, when to avoid it, and a minimal example.
+5. **Performance Anti-Patterns**
+   - List of anti-patterns you will cover (e.g., unbounded storage iteration, redundant deserialization, inefficient data structures, unnecessary cross-contract calls).
+   - For each: the bad pattern, why it hurts, the optimized alternative, and a before/after code example with expected metric delta.
 
-6. **Validation & Boundaries**
-   - How to validate at construction time vs. at entry points.
-   - How to design types that make illegal states unrepresentable.
-   - Examples of `RegexValidator`-equivalent patterns or numeric range types.
+6. **Measurable Improvements Framework**
+   - How every example in the playbook demonstrates improvement (percentage reduction, absolute cost savings).
+   - Whether to include a "cost calculator" helper or reference table.
+   - How contributors should document their own optimizations in PRs.
 
-7. **Migration Considerations**
-   - How to handle type changes when contract state is immutable.
-   - Strategies: versioned state wrappers, lazy migration, explicit state upgrade functions.
-   - Trade-offs between storage cost and migration complexity.
+7. **Tooling & Environment**
+   - SDK-specific profiling tools (e.g., `soroban-cli` cost simulation, RPC simulation endpoints, ledger entry inspection).
+   - External tools if applicable (Wasm analyzers, flamegraph generators).
+   - Required environment setup and versions.
 
 8. **Validation Strategy (Docs)**
-   - How you will ensure code examples compile (inline Rust tests, CI job, or manual `cargo check`).
-   - How you will verify external links and cross-references.
+   - How you will verify all commands run successfully (local execution, CI doc tests, or manual QA).
+   - How you will verify benchmark examples produce the stated results.
    - Target readability score or linting rules.
 
 ---
@@ -88,30 +96,31 @@ Before writing, present a detailed outline covering:
 
 After plan approval:
 
-- [ ] Draft the guide with clear conceptual explanations suitable for intermediate users.
-- [ ] Provide practical code examples for every pattern discussed; ensure they compile.
-- [ ] Document trade-offs explicitly (e.g., storage cost vs. readability, strict types vs. flexibility).
-- [ ] Cover modeling strategies, serialization implications, struct/enum patterns, validation, and migration.
-- [ ] Include a "Common Pitfalls" or "Anti-patterns" sidebar section if space permits.
+- [ ] Draft the playbook with a clearly defined, repeatable optimization loop.
+- [ ] Provide benchmark methodology with baseline metrics contributors should capture.
+- [ ] Document common performance anti-patterns with before/after code examples.
+- [ ] Ensure every optimization example demonstrates measurable improvement.
+- [ ] Make guidance actionable: contributors should know exactly what to run and what to change.
 - [ ] Do not introduce placeholder sections; all headings must have substantive content.
 - [ ] Do not couple unrelated concepts into this PR.
 - [ ] PR description must include:
   - `Closes #<issue-number>`
-  - Table of contents of the final guide
-  - Validation steps confirming code examples compile
-  - Any new dependencies or dev-dependencies added for example validation
+  - Table of contents of the final playbook
+  - Validation steps confirming all commands and examples execute correctly
+  - Any new dev-dependencies or scripts added for benchmarking
 
 ## Suggested Validation
 
 Run these and include a summary in the PR:
 
 ```bash
-# If examples are in Rust doc tests or inline
-cargo test --doc
-cargo check
+# If examples include contract build/test commands
+cargo build --release --target wasm32-unknown-unknown
+soroban contract build  # or project-specific CLI
 
-# Or if examples are in a separate examples/ directory
-cargo build --examples
+# If examples include benchmark tests
+cargo test --release -- bench
+# or project-specific benchmark runner
 
 # Documentation linting
 vale docs/
@@ -120,27 +129,28 @@ markdownlint docs/
 ```
 
 For manual review:
-- Read the guide as an intermediate developer and verify each example is copy-pasteable.
-- Verify all cross-references to existing contract source files are accurate.
-- Confirm no broken internal links or missing headings.
+- Execute every CLI command in the playbook and confirm the output matches what is documented.
+- Run at least one before/after benchmark pair and verify the delta is reproducible.
+- Confirm all cross-references to existing contract source files are accurate.
 
 ## Acceptance Criteria
-- [ ] Concepts are clearly explained with examples.
-- [ ] Trade-offs and best practices are documented.
-- [ ] Guide is suitable for intermediate users (assumes basic contract knowledge, explains design rationale).
-- [ ] All code examples compile against the current SDK version.
+- [ ] Playbook includes a repeatable optimization loop.
+- [ ] Examples demonstrate measurable improvements with before/after comparisons.
+- [ ] Guidance is actionable for contributors (commands to run, files to modify, metrics to watch).
+- [ ] Benchmark methodology and baseline metrics are clearly documented.
+- [ ] Common performance anti-patterns are identified with concrete solutions.
 - [ ] Implementation is complete and merge-ready (no placeholder sections).
 - [ ] Reviewer can verify behavior without guesswork.
 
 ## Commit Message
 ```
-docs: Add guide for designing robust custom contract types
+docs: Add contract optimization playbook
 
-- Covers modeling strategies and storage-serialization trade-offs
-- Provides common struct, enum, and validation patterns with examples
-- Includes state migration and schema evolution considerations
-- Targets intermediate developers with copy-pasteable code samples
-- Validates all examples compile against current contract SDK
+- Documents repeatable profiling and optimization workflow
+- Defines benchmark methodology and baseline metrics to capture
+- Catalogs common performance anti-patterns with before/after examples
+- Ensures every optimization shows measurable improvement
+- Provides actionable commands and tooling setup for contributors
 
 Closes #<issue-number>
 ```
@@ -149,9 +159,9 @@ Closes #<issue-number>
 
 ## Context Discovery Checklist
 Before proposing your plan, confirm you have read:
-- [ ] Existing contract source files defining custom types, structs, and enums.
-- [ ] Current developer guides or README sections on type design or storage.
-- [ ] Serialization utilities or derive macros used in the project (e.g., `soroban-sdk` types, custom XDR).
-- [ ] Any existing migration patterns or versioned state examples in the codebase.
-- [ ] Documentation style guide or template (heading conventions, code block labels, tone).
-- [ ] CI configuration for documentation or example compilation checks.
+- [ ] Existing contract source files with known performance bottlenecks (or recent optimization PRs).
+- [ ] Current SDK/tooling documentation for profiling, simulation, or cost estimation.
+- [ ] Existing developer guides or README sections on testing, deployment, or performance.
+- [ ] Any benchmark or test infrastructure already in the project (benchmark harnesses, CI jobs).
+- [ ] Documentation style guide or template (heading conventions, code block labels, admonitions).
+- [ ] How the project measures contract costs today (simulation output, gas tables, ledger entry fees).

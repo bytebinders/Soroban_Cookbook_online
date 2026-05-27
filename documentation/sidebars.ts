@@ -38,6 +38,7 @@ const sidebars: SidebarsConfig = {
         'patterns/overview',
         'patterns/hello-world',
         'patterns/custom-types',
+        'patterns/optimization-playbook',
       ],
     },
     {
