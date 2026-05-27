@@ -15,6 +15,7 @@ const sidebars: SidebarsConfig = {
         'getting-started/setup-windows',
         'getting-started/first-contract',
         'getting-started/deploy-testnet',
+        'getting-started/contract-interaction',
         'contributing',
       ],
     },
@@ -27,6 +28,7 @@ const sidebars: SidebarsConfig = {
         'concepts/storage',
         'concepts/authorization',
         'concepts/events',
+        'concepts/gas-and-resources',
       ],
     },
     {
