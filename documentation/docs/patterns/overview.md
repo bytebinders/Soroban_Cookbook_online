@@ -18,13 +18,13 @@ Browse battle-tested contract patterns for various use cases.
 
 ### [Hello World Storage](/docs/patterns/hello-world)
 
-**Difficulty**: Beginner | **Category**: Storage | **Status**: Stable
+<span class="sb-badge sb-badge--beginner">Beginner</span> <span class="sb-tag sb-tag--storage">Storage</span> <span class="sb-badge sb-badge--stable">Stable</span>
 
 Minimal Soroban contract demonstrating instance storage. Perfect starting point for understanding contract structure and basic storage operations.
 
 ### [Error Recovery](/docs/patterns/error-recovery)
 
-**Difficulty**: Intermediate | **Category**: Error Handling | **Status**: Stable
+<span class="sb-badge sb-badge--intermediate">Intermediate</span> <span class="sb-tag sb-tag--error-handling">Error Handling</span> <span class="sb-badge sb-badge--stable">Stable</span>
 
 Comprehensive error handling patterns including Result types, fallback logic, graceful degradation, transaction rollback, and input validation. Essential for production-ready contracts.
 
@@ -32,11 +32,15 @@ Comprehensive error handling patterns including Result types, fallback logic, gr
 
 ### 🪙 Token Standards
 
+<span class="sb-tag sb-tag--token">Token</span>
+
 - Basic token implementations
 - Token wrappers and vaults
 - Multi-token systems
 
 ### 💰 DeFi Patterns
+
+<span class="sb-tag sb-tag--defi">DeFi</span>
 
 - Escrow contracts
 - Atomic swaps
@@ -45,11 +49,15 @@ Comprehensive error handling patterns including Result types, fallback logic, gr
 
 ### 🗳️ Governance
 
+<span class="sb-tag sb-tag--governance">Governance</span>
+
 - Simple voting systems
 - DAO implementations
 - Proposal mechanisms
 
 ### ⚡ Advanced Patterns
+
+<span class="sb-badge sb-badge--advanced">Advanced</span>
 
 - Cross-contract calls
 - Upgradeable contracts
