@@ -30,6 +30,7 @@ const sidebars: SidebarsConfig = {
         'concepts/authorization',
         'concepts/events',
         'concepts/gas-and-resources',
+        'concepts/cross-contract-invocation',
       ],
     },
     {
