@@ -25,6 +25,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'concepts/introduction',
         'concepts/overview',
+        'concepts/best-practices',
         'concepts/storage',
         'concepts/authorization',
         'concepts/events',
