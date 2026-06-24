@@ -6,6 +6,8 @@ node_modules/
 # Testing
 coverage/
 .nyc_output/
+.tools/
+.playwright-browsers/
 
 # Build outputs
 documentation/build/

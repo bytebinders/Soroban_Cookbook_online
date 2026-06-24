@@ -17,7 +17,9 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json,md}\"",
-    "format:write": "prettier --write \"src/**/*.{ts,tsx,css,json,md}\""
+    "format:write": "prettier --write \"src/**/*.{ts,tsx,css,json,md}\"",
+    "test:e2e": "playwright test",
+    "test:console": "playwright test e2e/smoke-console.spec.ts"
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",
@@ -37,6 +39,7 @@
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
     "@eslint/js": "^9.39.3",
+    "@playwright/test": "^1.51.1",
     "@typescript-eslint/eslint-plugin": "^8.56.1",
     "@typescript-eslint/parser": "^8.56.1",
     "eslint": "^9.39.3",
