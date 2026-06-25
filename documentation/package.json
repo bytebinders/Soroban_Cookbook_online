@@ -17,7 +17,9 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json,md}\"",
-    "format:write": "prettier --write \"src/**/*.{ts,tsx,css,json,md}\""
+    "format:write": "prettier --write \"src/**/*.{ts,tsx,css,json,md}\"",
+    "spellcheck": "cspell lint",
+    "spellcheck:fix": "cspell lint --no-summary"
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",
