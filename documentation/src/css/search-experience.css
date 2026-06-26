@@ -1,6 +1,7 @@
 /**
  * Search (/search) — local Lunr plugin from @easyops-cn/docusaurus-search-local.
  * Uses stable DOM hooks: main container, search input, and result articles.
+ * Enhanced with advanced filter UI and keyboard navigation support.
  */
 
 main .container.margin-vert--lg {
@@ -22,6 +23,7 @@ main .container.margin-vert--lg input[name='q'] {
   transition:
     border-color 0.15s ease,
     box-shadow 0.15s ease;
+  width: 100%;
 }
 
 main .container.margin-vert--lg input[type='search']:focus,
@@ -31,11 +33,39 @@ main .container.margin-vert--lg input[name='q']:focus {
   box-shadow: 0 0 0 3px rgba(46, 133, 85, 0.25);
 }
 
+/* Search input wrapper for layout */
+main .container.margin-vert--lg form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Filter section */
+main .container.margin-vert--lg [class*='FilterContainer'] {
+  margin: 0;
+}
+
+/* Result meta info */
+main .container.margin-vert--lg .search-meta {
+  font-size: 0.85rem;
+  color: var(--ifm-color-content-secondary);
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: var(--ifm-global-radius);
+  background: var(--ifm-color-emphasis-100);
+}
+
 /* Result rows: plugin renders <article> per hit */
 main .container.margin-vert--lg section article {
   padding: 1rem 0;
   border-bottom: 1px solid var(--ifm-border-color);
   border-radius: 0;
+  transition: background-color 0.15s ease;
+}
+
+main .container.margin-vert--lg section article:hover {
+  background-color: var(--ifm-color-emphasis-100);
+  border-radius: var(--ifm-global-radius);
 }
 
 main .container.margin-vert--lg section article:last-child {
@@ -56,15 +86,42 @@ main .container.margin-vert--lg section article a:hover {
   text-decoration: underline;
 }
 
-/* Filter row (docs context) */
+/* Result metadata display */
+main .container.margin-vert--lg section article .result-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+}
+
+main .container.margin-vert--lg section article .result-badge {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-content-secondary);
+  border-radius: 0.25rem;
+}
+
+/* Filter row (docs context) — deprecated, kept for backward compatibility */
 main .container.margin-vert--lg select[name='search-context'] {
   border-radius: var(--ifm-global-radius);
   background: var(--ifm-background-color);
   color: var(--ifm-font-color-base);
 }
 
+/* Keyboard navigation indicator */
+main .container.margin-vert--lg section article[data-focused='true'] {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: -1px;
+}
+
 @media screen and (max-width: 996px) {
   main .container.margin-vert--lg .row {
     flex-direction: column;
+  }
+
+  main .container.margin-vert--lg {
+    padding: 0 1rem;
   }
 }
