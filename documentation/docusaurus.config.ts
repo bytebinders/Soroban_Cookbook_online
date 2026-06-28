@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Soroban Cookbook',
   tagline: 'A comprehensive guide to building smart contracts on Stellar with Soroban',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo.svg',
 
   future: {
     v4: true,
@@ -207,6 +207,10 @@ const config: Config = {
             {
               label: 'Stack Overflow',
               href: 'https://stackoverflow.com/questions/tagged/soroban',
+            },
+            {
+              label: 'Code of Conduct',
+              href: 'https://github.com/Soroban-Cookbook/Soroban_Cookbook_online/blob/main/CODE_OF_CONDUCT.md',
             },
           ],
         },

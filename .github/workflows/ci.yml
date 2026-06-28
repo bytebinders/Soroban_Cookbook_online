@@ -192,6 +192,8 @@ jobs:
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
 
       - name: Cache Cargo registry
         uses: actions/cache@v4
@@ -207,10 +209,48 @@ jobs:
       - name: Run example tests
         run: bash scripts/test-examples.sh
 
+  e2e-console:
+    name: Browser Console Audit
+    runs-on: ubuntu-latest
+    needs: [build-docs]
+    defaults:
+      run:
+        working-directory: ./documentation
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: "1.2.0"
+
+      - name: Cache Bun dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: bun-${{ hashFiles('documentation/bun.lock') }}
+          restore-keys: |
+            bun-
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build documentation
+        run: bun run build
+
+      - name: Install Playwright browsers
+        run: bunx playwright install --with-deps chromium
+
+      - name: Run console smoke tests
+        run: bun run test:console
+        env:
+          CI: true
+
   summary:
     name: CI Summary
     runs-on: ubuntu-latest
-    needs: [lint-format, typecheck, build-docs, validate-deployment, test-examples]
+    needs: [lint-format, typecheck, build-docs, validate-deployment, test-examples, e2e-console]
     if: always()
     steps:
       - name: Check job statuses
@@ -233,6 +273,10 @@ jobs:
           fi
           if [ "${{ needs.test-examples.result }}" != "success" ]; then
             echo "❌ Code example tests failed"
+            exit 1
+          fi
+          if [ "${{ needs.e2e-console.result }}" != "success" ]; then
+            echo "❌ Browser console audit failed"
             exit 1
           fi
           echo "✅ All CI checks passed"

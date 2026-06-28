@@ -15,6 +15,7 @@ const sidebars: SidebarsConfig = {
         'getting-started/setup-windows',
         'getting-started/first-contract',
         'getting-started/building-and-compilation',
+        'getting-started/local-testing-and-simulation',
         'getting-started/deploy-testnet',
         'getting-started/deploy-mainnet',
         'getting-started/contract-interaction',
@@ -46,6 +47,7 @@ const sidebars: SidebarsConfig = {
         'patterns/authorization',
         'patterns/optimization-playbook',
         'patterns/lifecycle-upgrades',
+        'patterns/proposal-lifecycle',
       ],
     },
     {

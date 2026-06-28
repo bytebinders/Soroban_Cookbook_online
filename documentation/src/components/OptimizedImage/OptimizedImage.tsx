@@ -10,6 +10,8 @@ interface OptimizedImageProps {
   className?: string;
   loading?: 'lazy' | 'eager';
   decoding?: 'async' | 'sync' | 'auto';
+  /** Optional WebP source. Omit when no WebP asset exists to avoid 404 console noise. */
+  webpSrc?: string;
 }
 
 const MIME_TYPES: Record<string, string> = {
@@ -29,6 +31,7 @@ export default function OptimizedImage({
   className,
   loading = 'lazy',
   decoding = 'async',
+  webpSrc,
 }: OptimizedImageProps) {
   const ext = src.split('.').pop()?.toLowerCase() ?? '';
   const isRaster = /\.(jpg|jpeg|png)$/i.test(src);
@@ -49,5 +52,32 @@ export default function OptimizedImage({
         className={styles.img}
       />
     </picture>
+  if (webpSrc) {
+    return (
+      <picture className={className}>
+        <source srcSet={webpSrc} type="image/webp" />
+        <source srcSet={src} type={`image/${src.split('.').pop()}`} />
+        <img
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={loading}
+          decoding={decoding}
+        />
+      </picture>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      className={className}
+      loading={loading}
+      decoding={decoding}
+    />
   );
 }
