@@ -1,4 +1,6 @@
 import React from 'react';
+import clsx from 'clsx';
+import styles from './OptimizedImage.module.css';
 
 interface OptimizedImageProps {
   src: string;
@@ -10,6 +12,15 @@ interface OptimizedImageProps {
   decoding?: 'async' | 'sync' | 'auto';
 }
 
+const MIME_TYPES: Record<string, string> = {
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  png: 'image/png',
+  gif: 'image/gif',
+  webp: 'image/webp',
+  avif: 'image/avif',
+};
+
 export default function OptimizedImage({
   src,
   alt,
@@ -19,13 +30,15 @@ export default function OptimizedImage({
   loading = 'lazy',
   decoding = 'async',
 }: OptimizedImageProps) {
-  // Generate WebP version of the image
-  const webpSrc = src.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+  const ext = src.split('.').pop()?.toLowerCase() ?? '';
+  const isRaster = /\.(jpg|jpeg|png)$/i.test(src);
+  const webpSrc = isRaster ? src.replace(/\.(jpg|jpeg|png)$/i, '.webp') : null;
+  const mimeType = MIME_TYPES[ext] ?? `image/${ext}`;
 
   return (
-    <picture className={className}>
-      <source srcSet={webpSrc} type="image/webp" />
-      <source srcSet={src} type={`image/${src.split('.').pop()}`} />
+    <picture className={clsx(styles.picture, className)}>
+      {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
+      <source srcSet={src} type={mimeType} />
       <img
         src={src}
         alt={alt}
@@ -33,6 +46,7 @@ export default function OptimizedImage({
         height={height}
         loading={loading}
         decoding={decoding}
+        className={styles.img}
       />
     </picture>
   );
