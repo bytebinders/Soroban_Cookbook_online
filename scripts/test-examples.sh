@@ -69,6 +69,20 @@ for dir in "${EXAMPLE_DIRS[@]}"; do
 
   log_info "Testing '${name}' …"
 
+  # Upgradeable example requires v2 Wasm to be built before running tests.
+  if [ "$name" = "upgradeable" ] && [ -f "$dir/v2/Cargo.toml" ]; then
+    log_info "Building v2 Wasm for '${name}' …"
+    if ! cargo build --manifest-path "$dir/v2/Cargo.toml" \
+        --target wasm32-unknown-unknown --release \
+        --target-dir "$dir/v2/target" 2>&1; then
+      log_fail "'${name}' — v2 Wasm build FAILED"
+      (( FAIL++ )) || true
+      FAILED_EXAMPLES+=("$name")
+      echo ""
+      continue
+    fi
+  fi
+
   if cargo test --manifest-path "$dir/Cargo.toml" 2>&1; then
     log_pass "'${name}' — all tests passed"
     (( PASS++ )) || true
