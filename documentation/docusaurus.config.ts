@@ -151,6 +151,7 @@ const config: Config = {
           customCss: [
             './src/css/fonts.css',
             './src/css/design-tokens.css',
+            './src/css/mobile-first.css',
             './src/css/breakpoints.css',
             './src/css/badges-tags.css',
             './src/css/custom.css',
