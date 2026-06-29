@@ -39,7 +39,7 @@ const samplePatterns: Pattern[] = [
     env.storage().instance().extend_ttl(100, 100);
     // Mint logic here
 }`,
-    href: '/docs/patterns/token-contract',
+    href: '/docs/patterns/authorization',
     icon: '🪙',
   },
   {
@@ -54,7 +54,7 @@ const samplePatterns: Pattern[] = [
     require_auth(voter);
     // Voting logic here
 }`,
-    href: '/docs/patterns/voting-contract',
+    href: '/docs/patterns/custom-types',
     icon: '🗳️',
   },
   {
@@ -68,7 +68,7 @@ const samplePatterns: Pattern[] = [
     code: `pub fn mint_nft(env: Env, to: Address, token_id: u64, metadata: String) {
     // NFT minting logic
 }`,
-    href: '/docs/patterns/nft-contract',
+    href: '/docs/patterns/error-handling',
     icon: '🎨',
   },
   {
@@ -82,7 +82,7 @@ const samplePatterns: Pattern[] = [
     code: `pub fn swap(env: Env, token_a: Address, token_b: Address, amount_in: i128) -> i128 {
     // AMM swap logic
 }`,
-    href: '/docs/patterns/liquidity-pool',
+    href: '/docs/patterns/lifecycle-upgrades',
     icon: '💧',
   },
   {
@@ -96,7 +96,7 @@ const samplePatterns: Pattern[] = [
     code: `pub fn submit_transaction(env: Env, from: Address, to: Address, amount: i128) {
     // Multisig transaction logic
 }`,
-    href: '/docs/patterns/multisig-wallet',
+    href: '/docs/patterns/optimization-playbook',
     icon: '🔐',
   },
   {
@@ -110,7 +110,7 @@ const samplePatterns: Pattern[] = [
     code: `pub fn lock_funds(env: Env, amount: i128, release_time: u64) {
     // Time lock logic
 }`,
-    href: '/docs/patterns/time-lock',
+    href: '/docs/patterns/error-recovery',
     icon: '⏰',
   },
   {
@@ -124,7 +124,7 @@ const samplePatterns: Pattern[] = [
     code: `pub fn create_escrow(env: Env, buyer: Address, seller: Address, amount: i128) {
     // Escrow creation logic
 }`,
-    href: '/docs/patterns/escrow-contract',
+    href: '/docs/patterns/overview',
     icon: '🤝',
   },
 ];

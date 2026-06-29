@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Soroban Cookbook',
   tagline: 'A comprehensive guide to building smart contracts on Stellar with Soroban',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo.svg',
 
   future: {
     v4: true,
@@ -20,6 +20,8 @@ const config: Config = {
   customFields: {
     /** POST endpoint accepting JSON `{ "email": string }`. Set via env at build time for real integrations. */
     newsletterEndpoint: process.env.NEWSLETTER_ENDPOINT ?? '',
+    /** Soroban Cookbook Discord invite link. Set DISCORD_INVITE_URL at build time once the server is created. */
+    discordInviteUrl: process.env.DISCORD_INVITE_URL ?? '',
   },
 
   onBrokenLinks: 'throw',
@@ -179,6 +181,11 @@ const config: Config = {
           label: 'Docs',
         },
         {
+          href: process.env.DISCORD_INVITE_URL ?? 'https://discord.gg/YNBu3jKEF',
+          label: 'Discord',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/Soroban-Cookbook/Soroban_Cookbook_online',
           label: 'GitHub',
           position: 'right',
@@ -201,12 +208,20 @@ const config: Config = {
           title: 'Community',
           items: [
             {
+              label: 'Soroban Cookbook Discord',
+              href: process.env.DISCORD_INVITE_URL ?? 'https://discord.gg/YNBu3jKEF',
+            },
+            {
               label: 'Stellar Discord',
-              href: 'https://discord.gg/stellardev',
+              href: 'https://discord.gg/YNBu3jKEF',
             },
             {
               label: 'Stack Overflow',
               href: 'https://stackoverflow.com/questions/tagged/soroban',
+            },
+            {
+              label: 'Code of Conduct',
+              href: 'https://github.com/Soroban-Cookbook/Soroban_Cookbook_online/blob/main/CODE_OF_CONDUCT.md',
             },
           ],
         },

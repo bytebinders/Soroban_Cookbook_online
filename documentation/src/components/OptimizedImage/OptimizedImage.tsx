@@ -8,6 +8,8 @@ interface OptimizedImageProps {
   className?: string;
   loading?: 'lazy' | 'eager';
   decoding?: 'async' | 'sync' | 'auto';
+  /** Optional WebP source. Omit when no WebP asset exists to avoid 404 console noise. */
+  webpSrc?: string;
 }
 
 export default function OptimizedImage({
@@ -18,22 +20,34 @@ export default function OptimizedImage({
   className,
   loading = 'lazy',
   decoding = 'async',
+  webpSrc,
 }: OptimizedImageProps) {
-  // Generate WebP version of the image
-  const webpSrc = src.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+  if (webpSrc) {
+    return (
+      <picture className={className}>
+        <source srcSet={webpSrc} type="image/webp" />
+        <source srcSet={src} type={`image/${src.split('.').pop()}`} />
+        <img
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={loading}
+          decoding={decoding}
+        />
+      </picture>
+    );
+  }
 
   return (
-    <picture className={className}>
-      <source srcSet={webpSrc} type="image/webp" />
-      <source srcSet={src} type={`image/${src.split('.').pop()}`} />
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={loading}
-        decoding={decoding}
-      />
-    </picture>
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      className={className}
+      loading={loading}
+      decoding={decoding}
+    />
   );
 }
