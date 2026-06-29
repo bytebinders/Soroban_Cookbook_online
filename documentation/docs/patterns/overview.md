@@ -34,12 +34,19 @@ Error taxonomy, custom error patterns, error propagation strategies, and user-fa
 
 Comprehensive error handling patterns including Result types, fallback logic, graceful degradation, transaction rollback, and input validation. Essential for production-ready contracts.
 
+### [Token Standards & Implementation](/docs/patterns/token-standards)
+
+<span class="sb-badge sb-badge--intermediate">Intermediate</span> <span class="sb-tag sb-tag--token">Token</span> <span class="sb-badge sb-badge--stable">Stable</span>
+
+Comprehensive overview of Stellar/Soroban token standards. Understand the SEP-41 interface, the built-in Stellar Asset Contract (SAC), custom token patterns, and Non-Fungible Tokens (NFTs).
+
 ## Pattern Categories
 
 ### 🪙 Token Standards
 
 <span class="sb-tag sb-tag--token">Token</span>
 
+- **[Token Standards & Implementation](/docs/patterns/token-standards)** — Comprehensive overview of SEP-41, SAC, custom tokens, and NFTs.
 - Basic token implementations
 - Token wrappers and vaults
 - Multi-token systems
