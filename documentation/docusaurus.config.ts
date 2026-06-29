@@ -41,6 +41,25 @@ const config: Config = {
 
   // Meta tags for theme color + social previews (see CONTRIBUTING — SEO & social metadata)
   headTags: [
+    // Content Security Policy
+    {
+      tagName: 'meta',
+      attributes: {
+        'http-equiv': 'Content-Security-Policy',
+        content: [
+          "default-src 'self'",
+          "script-src 'self' 'unsafe-inline'",
+          "style-src 'self' 'unsafe-inline'",
+          "img-src 'self' data: https:",
+          "font-src 'self'",
+          "connect-src 'self' https:",
+          "frame-src 'none'",
+          "object-src 'none'",
+          "base-uri 'self'",
+          "form-action 'self' https:",
+        ].join('; '),
+      },
+    },
     {
       tagName: 'meta',
       attributes: {
