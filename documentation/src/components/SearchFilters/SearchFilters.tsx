@@ -116,7 +116,11 @@ export default function SearchFilters({ onFilterChange }: SearchFiltersProps) {
         className={styles.filterToggle}
         onClick={() => setIsExpanded(!isExpanded)}
         aria-expanded={isExpanded}
-        aria-label={`${isExpanded ? 'Hide' : 'Show'} search filters${activeFilterCount > 0 ? ` (${activeFilterCount} active)` : ''}`}
+        aria-label={
+          isExpanded
+            ? `Hide search filters${activeFilterCount > 0 ? ` (${activeFilterCount} active)` : ''}`
+            : `Show search filters${activeFilterCount > 0 ? ` (${activeFilterCount} active)` : ''}`
+        }
       >
         <span className={styles.filterLabel}>Filters</span>
         {activeFilterCount > 0 && (
