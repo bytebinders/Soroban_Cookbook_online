@@ -10,5 +10,7 @@ members = [
     "error-handling",
     "access-control",
     "emergency-stop",
+    "htlc-swap",
+    "constant-product-amm",
 ]
 resolver = "2"
