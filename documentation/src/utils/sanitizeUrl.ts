@@ -6,19 +6,9 @@
  * is not, so callers always receive a string and never crash.
  */
 
-const DANGEROUS_SCHEMES = [
-  'javascript:',
-  'data:',
-  'vbscript:',
-  'livescript:',
-];
+const DANGEROUS_SCHEMES = ['javascript:', 'data:', 'vbscript:', 'livescript:'];
 
-const SAFE_SCHEME_PREFIXES = [
-  'https://',
-  'http://',
-  'mailto:',
-  'tel:',
-];
+const SAFE_SCHEME_PREFIXES = ['https://', 'http://', 'mailto:', 'tel:'];
 
 const RELATIVE_RE = /^(\/|\.\/|\.\.\/|\?|#)/;
 
@@ -27,6 +17,7 @@ export function sanitizeUrl(url: string | null | undefined): string {
     return '#';
   }
 
+  // eslint-disable-next-line no-control-regex -- intentional: strips control chars used to bypass scheme checks
   const normalised = url.replace(/[\s\u0000-\u001f]/g, '').toLowerCase();
 
   if (DANGEROUS_SCHEMES.some((scheme) => normalised.startsWith(scheme))) {

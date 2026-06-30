@@ -22,7 +22,9 @@ export default function NewsletterSignup({ className }: NewsletterSignupProps) {
     if (typeof raw !== 'string' || raw.length === 0) return undefined;
     if (!isHttpsUrl(raw)) {
       if (process.env.NODE_ENV !== 'production') {
-        console.warn('[NewsletterSignup] newsletterEndpoint must be an https:// URL. Endpoint ignored.');
+        console.warn(
+          '[NewsletterSignup] newsletterEndpoint must be an https:// URL. Endpoint ignored.',
+        );
       }
       return undefined;
     }
