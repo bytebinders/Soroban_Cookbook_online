@@ -1,13 +1,14 @@
 import Link from '@docusaurus/Link';
-import NewsletterSignup from '@site/src/components/NewsletterSignup';
 import PatternPreview, { Pattern } from '@site/src/components/PatternPreview';
 import Layout from '@theme/Layout';
 import Stats from '@site/src/components/Stats';
-import QuickStartSection from '@site/src/components/QuickStartSection';
-import Testimonials from '@site/src/components/UI/Testimonials';
 import styles from './index.module.css';
-import React, { useState, useEffect } from 'react';
-import { Skeleton, Spinner } from '@site/src/components/Loading';
+import React, { Suspense } from 'react';
+
+// Lazy load below-the-fold components for faster mobile rendering
+const QuickStartSection = React.lazy(() => import('@site/src/components/QuickStartSection'));
+const NewsletterSignup = React.lazy(() => import('@site/src/components/NewsletterSignup'));
+const Testimonials = React.lazy(() => import('@site/src/components/UI/Testimonials'));
 
 const samplePatterns: Pattern[] = [
   {
@@ -130,13 +131,6 @@ const samplePatterns: Pattern[] = [
 ];
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <Layout
       title="Soroban Cookbook"
@@ -172,50 +166,30 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Loading States & Content Section */}
+      {/* Above-the-fold content - critical rendering path */}
       <div className={styles.container}>
-        {isLoading ? (
-          <div style={{ padding: '4rem 0' }}>
-            <div
-              style={{
-                background: 'var(--ifm-background-surface-color)',
-                padding: '2rem',
-                borderRadius: '12px',
-                border: '1px solid var(--ifm-border-color)',
-              }}>
-              <Skeleton height="40px" width="50%" />
-              <div style={{ marginTop: '1rem' }}>
-                <Skeleton height="20px" width="100%" />
-                <Skeleton height="20px" width="90%" />
-              </div>
-              <div
-                style={{ marginTop: '2rem', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <Spinner size={24} />
-                <span style={{ color: 'var(--ifm-color-emphasis-700)' }}>
-                  Initializing cookbook data...
-                </span>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <>
-            <PatternPreview
-              patterns={samplePatterns}
-              title="Popular Patterns"
-              subtitle="Explore production-ready smart contract patterns used by developers worldwide"
-              showViewAll={true}
-              viewAllHref="/docs/patterns/overview"
-              maxVisible={6}
-              enableCarousel={true}
-            />
-            <Stats />
-          </>
-        )}
+        <PatternPreview
+          patterns={samplePatterns}
+          title="Popular Patterns"
+          subtitle="Explore production-ready smart contract patterns used by developers worldwide"
+          showViewAll={true}
+          viewAllHref="/docs/patterns/overview"
+          maxVisible={6}
+          enableCarousel={true}
+        />
+        <Stats />
       </div>
 
-      <QuickStartSection />
-      <NewsletterSignup />
-      <Testimonials />
+      {/* Below-the-fold sections - lazy loaded for better mobile performance */}
+      <Suspense fallback={null}>
+        <QuickStartSection />
+      </Suspense>
+      <Suspense fallback={null}>
+        <NewsletterSignup />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Testimonials />
+      </Suspense>
     </Layout>
   );
 }
