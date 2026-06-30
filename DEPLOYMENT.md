@@ -150,10 +150,35 @@ This starts a live-reload development server at `http://localhost:3000`.
 
 ## Environment Variables
 
-Currently, no environment variables are required for deployment. The workflow uses:
+Deployment does not require any environment variables to succeed — the build falls back to safe defaults (an inert newsletter form, a hidden Discord link) if none are set. Two optional variables enable real integrations:
 
-- Bun (specified in workflow)
-- Docusaurus build configuration from `documentation/docusaurus.config.ts`
+| Variable | Used by | Purpose |
+|---|---|---|
+| `NEWSLETTER_ENDPOINT` | `documentation/docusaurus.config.ts` → `customFields.newsletterEndpoint` | POST endpoint the newsletter signup form submits `{ "email": string }` to. |
+| `DISCORD_INVITE_URL` | `documentation/docusaurus.config.ts` → `customFields.discordInviteUrl` | Discord invite link surfaced in the UI once the server exists. |
+
+**These values are never hardcoded in source.** They are read from `process.env` at build time (see the `customFields` block in `docusaurus.config.ts`) and are wired into the production build via `.github/workflows/deploy.yml`, which sources them from **GitHub Repository Secrets**:
+
+```yaml
+- name: Build website
+  run: bun run build
+  env:
+    NEWSLETTER_ENDPOINT: ${{ secrets.NEWSLETTER_ENDPOINT }}
+    DISCORD_INVITE_URL: ${{ secrets.DISCORD_INVITE_URL }}
+```
+
+### Setting up the secrets
+
+1. Go to **Settings → Secrets and variables → Actions → Secrets** tab.
+2. Click **New repository secret**.
+3. Add `NEWSLETTER_ENDPOINT` (and/or `DISCORD_INVITE_URL`) with the real value.
+4. Re-run the deploy workflow (push to `main` or trigger manually) — no code changes required.
+
+### Important: these are not confidential at runtime
+
+Because this is a fully static site, any value baked in via `customFields` ends up readable in the published JavaScript bundle — a visitor's browser has to receive it to use it. Storing them as GitHub Secrets controls **who can set or change the value** (write access to repo secrets) and **keeps it out of git history and pull request diffs**; it does not make the value secret from website visitors. Treat these as build-time configuration, not authentication credentials — never put real API keys, passwords, or signing keys into `customFields` or any other value that reaches the client bundle.
+
+This repo follows the same secrets-only pattern for actual credentials: `.github/workflows/alerts.yml` reads `SLACK_WEBHOOK_URL` exclusively via `${{ secrets.SLACK_WEBHOOK_URL }}` (see [Alert System](#alert-system) below) and never hardcodes it. There are no `.env` files committed to this repository — `.gitignore` excludes `.env*` so local secrets never reach version control.
 
 ## Performance Considerations
 
@@ -167,6 +192,54 @@ Currently, no environment variables are required for deployment. The workflow us
 - Permissions are minimal: `contents: read`, `pages: write`, `id-token: write`
 - No secrets required for GitHub Pages deployment
 - All code is built from the repository source
+
+### Security Headers
+
+The site ships a production-grade HTTP security baseline:
+
+| Header | Value | Purpose |
+|---|---|---|
+| `X-Frame-Options` | `DENY` | Blocks the site from being framed (clickjacking). |
+| `X-Content-Type-Options` | `nosniff` | Stops browsers from MIME-sniffing responses. |
+| `X-XSS-Protection` | `1; mode=block` | Legacy reflected-XSS filter for older browsers. |
+| `Strict-Transport-Security` | `max-age=31536000; includeSubDomains; preload` | Forces HTTPS for one year, including subdomains. |
+| `Content-Security-Policy` | see below | Restricts which origins scripts, styles, fonts, images, and connections may load from. |
+
+```
+default-src 'self';
+script-src 'self' 'unsafe-inline';
+style-src 'self' 'unsafe-inline';
+img-src 'self' data: https://api.dicebear.com;
+font-src 'self' data:;
+connect-src 'self' https:;
+form-action 'self' https:;
+object-src 'none';
+base-uri 'self';
+frame-ancestors 'none';
+```
+
+`script-src`/`style-src` need `'unsafe-inline'` because Docusaurus emits a few inline boilerplate scripts (theme detection, base-URL warning banner) and inline `style="..."` attributes that vary per build and can't be pinned to a static hash. `img-src` allowlists `api.dicebear.com`, which generates the testimonial avatar images on the homepage. `connect-src`/`form-action` allow `https:` generally because the newsletter form posts to an operator-configured endpoint (`NEWSLETTER_ENDPOINT`, see [Environment Variables](#environment-variables)) that isn't known at policy-authoring time.
+
+**Where this is defined (three places, kept in sync):**
+
+1. **`vercel.json`** (repo root) — a `headers` block. This is the only mechanism that's actually enforced when this project is deployed via Vercel, because Vercel's edge network honors custom response headers.
+2. **`documentation/static/_headers`** — the Netlify/Cloudflare Pages `_headers` file convention. Docusaurus copies everything under `static/` into the build root, so this lands at `build/_headers`. Honored automatically if this site is ever hosted on Netlify or Cloudflare Pages; harmless (ignored) elsewhere.
+3. **`documentation/docusaurus.config.ts`** → `headTags` — a `<meta http-equiv="Content-Security-Policy">` tag baked into every page's `<head>`. This is the **only** mechanism that works on plain GitHub Pages, because GitHub Pages serves static files with no way to attach custom HTTP response headers (no edge functions, no header config). A caveat: the `<meta>` form of CSP cannot carry `frame-ancestors` — browsers silently ignore that directive outside a real HTTP header — and meta tags cannot express `X-Frame-Options`, `X-Content-Type-Options`, `Strict-Transport-Security`, or `X-XSS-Protection` at all (these are HTTP-header-only). **If you need those four headers enforced on a custom domain backed by GitHub Pages, put a CDN in front of it** (e.g. a Cloudflare proxy with a Transform Rule / Response Header Rule adding them) — there is no static-file-only way to add them on GitHub Pages itself.
+
+**Verification methods:**
+
+```bash
+# Inspect headers actually returned by the live site (works for Vercel/Netlify/CDN-fronted deployments):
+curl -sI https://soroban-cookbook.dev | grep -iE 'x-frame-options|x-content-type-options|x-xss-protection|strict-transport-security|content-security-policy'
+
+# Confirm the CSP <meta> tag is present in the built HTML (works for any host, including plain GitHub Pages):
+grep -o '<meta http-equiv="Content-Security-Policy"[^>]*>' documentation/build/index.html
+
+# Browser-based audit:
+# https://securityheaders.com — paste the deployed URL for a graded report.
+```
+
+This repo's `documentation/e2e/smoke-console.spec.ts` Playwright suite (`bun run test:console`, also run in CI as the `e2e-console` job) loads the homepage, docs pages, search, and the 404 page with a real Chromium instance and fails the build if the browser logs any CSP violation — so any future change that introduces a new third-party script, font, image host, or inline style that the policy doesn't already allow will be caught automatically rather than silently breaking in production.
 
 ## Alert System
 

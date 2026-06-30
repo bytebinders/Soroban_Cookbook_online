@@ -43,6 +43,11 @@ jobs:
 
       - name: Build website
         run: bun run build
+        env:
+          # Sourced from GitHub Repository Secrets — never hardcode these values.
+          # See DEPLOYMENT.md → Environment Variables for setup instructions.
+          NEWSLETTER_ENDPOINT: ${{ secrets.NEWSLETTER_ENDPOINT }}
+          DISCORD_INVITE_URL: ${{ secrets.DISCORD_INVITE_URL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

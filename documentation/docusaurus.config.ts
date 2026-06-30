@@ -48,6 +48,20 @@ const config: Config = {
         content: '#1e1e2e',
       },
     },
+    // Content-Security-Policy fallback for hosts that cannot set custom HTTP
+    // response headers (e.g. GitHub Pages). Hosts that can set real headers
+    // (Vercel via vercel.json, Netlify/Cloudflare Pages via static/_headers)
+    // should rely on those instead — a header-based CSP also covers
+    // `frame-ancestors`, which browsers ignore when delivered via <meta>.
+    // See DEPLOYMENT.md → Security Headers for the full policy rationale.
+    {
+      tagName: 'meta',
+      attributes: {
+        'http-equiv': 'Content-Security-Policy',
+        content:
+          "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.dicebear.com; font-src 'self' data:; connect-src 'self' https:; form-action 'self' https:; object-src 'none'; base-uri 'self'",
+      },
+    },
     // Preload the Inter variable font (latin woff2) — critical for above-the-fold text.
     // The href must match the path emitted by @fontsource-variable/inter after build.
     {

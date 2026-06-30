@@ -148,7 +148,7 @@ If an upgrade introduces a critical flaw, you must have a plan to recover.
 
 1.  **Immutable Fallback:** If the contract is truly immutable, you cannot upgrade. Your only "rollback" is to deploy a new contract and ask users to migrate.
 2.  **Logic Rollback:** Call `upgrade` again with the hash of the *previous* stable Wasm bytecode.
-3.  **Emergency Pause:** Include a "Circuit Breaker" to halt operations while you diagnose and fix a failed upgrade.
+3.  **Emergency Pause:** Include a "Circuit Breaker" to halt operations while you diagnose and fix a failed upgrade. See the tested [`emergency-stop` example](https://github.com/Soroban-Cookbook/Soroban_Cookbook_online/tree/main/examples/emergency-stop) for a minimal, admin-gated `pause()`/`unpause()` implementation with a `fail_if_paused` guard applied to operational entry points.
 
 ---
 

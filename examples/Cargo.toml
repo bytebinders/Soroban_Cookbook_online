@@ -8,5 +8,7 @@ members = [
     "upgradeable",
     "authorization",
     "error-handling",
+    "access-control",
+    "emergency-stop",
 ]
 resolver = "2"
