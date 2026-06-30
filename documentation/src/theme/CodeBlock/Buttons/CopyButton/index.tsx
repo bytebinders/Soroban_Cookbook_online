@@ -1,7 +1,7 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import {translate} from '@docusaurus/Translate';
-import {useCodeBlockContext} from '@docusaurus/theme-common/internal';
+import { translate } from '@docusaurus/Translate';
+import { useCodeBlockContext } from '@docusaurus/theme-common/internal';
 import Button from '@theme/CodeBlock/Buttons/Button';
 import IconCopy from '@theme/Icon/Copy';
 import IconSuccess from '@theme/Icon/Success';
@@ -73,13 +73,13 @@ function trackCopy(language: string | undefined) {
   }
 
   if (Array.isArray(window.dataLayer)) {
-    window.dataLayer.push({event: 'copy_code_block', ...eventData});
+    window.dataLayer.push({ event: 'copy_code_block', ...eventData });
   }
 }
 
 function useCopyButton() {
   const {
-    metadata: {code, language},
+    metadata: { code, language },
   } = useCodeBlockContext();
   const [copyState, setCopyState] = useState<CopyState>('idle');
   const timeoutRef = useRef<number | null>(null);
@@ -115,17 +115,21 @@ function useCopyButton() {
     };
   }, []);
 
-  return {copyCode, copyState};
+  return { copyCode, copyState };
 }
 
-export default function CopyButton({className}: {className?: string}) {
-  const {copyCode, copyState} = useCopyButton();
+export default function CopyButton({ className }: { className?: string }) {
+  const { copyCode, copyState } = useCopyButton();
 
   return (
     <Button
       aria-label={ariaLabel(copyState)}
       title={title()}
-      className={clsx(className, styles.copyButton, copyState !== 'idle' && styles.copyButtonActive)}
+      className={clsx(
+        className,
+        styles.copyButton,
+        copyState !== 'idle' && styles.copyButtonActive,
+      )}
       onClick={copyCode}>
       <span className={styles.copyButtonIcons} aria-hidden="true">
         <IconCopy className={styles.copyButtonIcon} />
