@@ -6,6 +6,8 @@ members = [
     "simple-voting",
     "simple-dao",
     "upgradeable",
+    "authorization",
+    "error-handling",
     "access-control",
     "emergency-stop",
 ]

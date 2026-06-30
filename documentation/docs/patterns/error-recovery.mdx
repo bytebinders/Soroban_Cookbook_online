@@ -36,7 +36,7 @@ Soroban uses Rust's `Result` type for error handling, which is analogous to try-
 <Tabs>
   <TabItem value="contract" label="Contract" default>
 
-```rust
+```rust illustrative
 #![no_std]
 use soroban_sdk::{contract, contractimpl, contracttype, Env, Address, Symbol};
 
@@ -132,7 +132,7 @@ impl TokenContract {
   </TabItem>
   <TabItem value="test" label="Test">
 
-```rust
+```rust illustrative
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -207,7 +207,7 @@ Implement fallback mechanisms when primary operations fail.
 <Tabs>
   <TabItem value="contract" label="Contract" default>
 
-```rust
+```rust illustrative
 #![no_std]
 use soroban_sdk::{contract, contractimpl, Env, Address, Symbol};
 
@@ -283,7 +283,7 @@ pub enum Error {
   </TabItem>
   <TabItem value="test" label="Test">
 
-```rust
+```rust illustrative
 #[test]
 fn test_fallback_to_secondary() {
     let env = Env::default();
@@ -335,7 +335,7 @@ Design contracts to continue operating with reduced functionality when errors oc
 <Tabs>
   <TabItem value="contract" label="Contract" default>
 
-```rust
+```rust illustrative
 #![no_std]
 use soroban_sdk::{contract, contractimpl, Env, Address, Symbol};
 
@@ -456,7 +456,7 @@ pub enum Error {
   </TabItem>
   <TabItem value="test" label="Test">
 
-```rust
+```rust illustrative
 #[test]
 fn test_graceful_degradation() {
     let env = Env::default();
@@ -489,7 +489,7 @@ Soroban automatically rolls back state changes when a contract panics or returns
 <Tabs>
   <TabItem value="contract" label="Contract" default>
 
-```rust
+```rust illustrative
 #![no_std]
 use soroban_sdk::{contract, contractimpl, Env, Address};
 
@@ -586,7 +586,7 @@ pub enum Error {
   </TabItem>
   <TabItem value="test" label="Test">
 
-```rust
+```rust illustrative
 #[test]
 fn test_rollback_on_error() {
     let env = Env::default();
@@ -648,7 +648,7 @@ Validate all inputs early to fail fast and provide clear error messages.
 <Tabs>
   <TabItem value="contract" label="Contract" default>
 
-```rust
+```rust illustrative
 #![no_std]
 use soroban_sdk::{contract, contractimpl, Env, Address, String};
 
@@ -765,7 +765,7 @@ pub enum Error {
   </TabItem>
   <TabItem value="test" label="Test">
 
-```rust
+```rust illustrative
 #[test]
 fn test_validation_invalid_amount() {
     let env = Env::default();
@@ -836,7 +836,7 @@ fn test_validation_expiry() {
 
 ### Common Security Pitfalls
 
-```rust
+```rust illustrative
 // ❌ BAD: Ignoring errors
 let balance = env.storage().get(&user).unwrap(); // Can panic!
 

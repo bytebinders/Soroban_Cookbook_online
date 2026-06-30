@@ -44,7 +44,7 @@ Encode every invalid state as a compile-time impossibility or a guarded `assert!
 <Tabs>
   <TabItem value="contract" label="Contract" default>
 
-```rust
+```rust illustrative
 #![no_std]
 use soroban_sdk::{contract, contractimpl, contracttype, Env};
 
@@ -128,7 +128,7 @@ impl SimpleDao {
   </TabItem>
   <TabItem value="tests" label="Tests">
 
-```rust
+```rust illustrative
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -55,7 +55,7 @@ A healthy protocol moves through distinct phases, each with specific entry and e
 
 Upgrades must be protected by strict access control. In Soroban, the `upgrade` function should typically require the authorization of an admin or a decentralized governance body.
 
-```rust
+```rust illustrative
 #[contractimpl]
 impl MyContract {
     pub fn upgrade(env: Env, new_wasm_hash: BytesN<32>) {
@@ -94,7 +94,7 @@ When you upgrade logic, you often need to evolve the data structures in storage.
 ### 1. Lazy Migration (Recommended)
 Upgrade individual storage entries only when they are accessed. This spreads the gas cost over many transactions and avoids hitting gas limits.
 
-```rust
+```rust illustrative
 #[contracttype]
 pub enum AccountState {
     V1(AccountV1),
