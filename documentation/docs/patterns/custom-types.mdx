@@ -14,7 +14,7 @@ import { Alert } from "@site/src/components/Alert";
 
 ## Overview
 
-In Soroban, types are more than just data containers—they define the contract's storage footprint, gas efficiency, and long-term maintainability. This guide covers strategies for designing custom types that are robust, efficient, and evolvable.
+In Soroban, types are more than just data containersï¿½they define the contract's storage footprint, gas efficiency, and long-term maintainability. This guide covers strategies for designing custom types that are robust, efficient, and evolvable.
 
 <Callout variant="info" title="Why Type Design Matters">
 Smart contracts are immutable by nature, but their state persists across upgrades. Poorly designed types can lead to "storage bloat," high gas costs for reads/writes, and complex migrations when business requirements change.
@@ -33,7 +33,7 @@ When translating domain concepts (like "User Account" or "Liquidity Pool") into 
 
 Use the "Newtype" pattern to wrap primitive types. This prevents accidental confusion between different units or IDs that share the same underlying type.
 
-```rust
+```rust illustrative
 #[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct OrderId(pub u32);
@@ -56,7 +56,7 @@ Soroban uses a highly optimized serialization format (XDR). To make a custom typ
 - **Enums:** For representing state or mutually exclusive options.
 - **Prims:** `i128`, `u32`, `Address`, `Bytes`, `Symbol`, etc.
 
-```rust
+```rust illustrative
 #[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum ContractState {
@@ -96,7 +96,7 @@ Reading a 1KB struct to change a single boolean field still costs the gas for a 
 
 Use enums to manage the lifecycle of a contract or entity. This makes illegal transitions impossible at the type level.
 
-```rust
+```rust illustrative
 #[contracttype]
 pub enum ProposalStatus {
     Pending,
@@ -126,7 +126,7 @@ pub fn cast_vote(env: Env, id: u32) -> Result<(), Error> {
 
 Group global contract settings into a single struct. This is more efficient than storing 10 separate configuration variables in 10 different storage keys.
 
-```rust
+```rust illustrative
 #[contracttype]
 pub struct Config {
     pub admin: Address,
@@ -151,7 +151,7 @@ Never trust data coming into the contract. Validate types at the entry point (`c
 - **Sanitization:** Check that `Address` types aren't the null address if applicable.
 - **State Invariants:** Verify that the internal state of a struct is consistent (e.g., `start_time < end_time`).
 
-```rust
+```rust illustrative
 pub fn create_order(env: Env, amount: i128) -> Result<(), Error> {
     if amount <= 0 {
         return Err(Error::InvalidAmount);
@@ -168,7 +168,7 @@ As your project grows, you may need to add fields to your structs. Because stora
 
 Instead of storing a raw struct, store an enum that wraps different versions of the data.
 
-```rust
+```rust illustrative
 #[contracttype]
 pub enum AccountState {
     V1(AccountV1),

@@ -18,7 +18,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json,md}\"",
     "format:write": "prettier --write \"src/**/*.{ts,tsx,css,json,md}\"",
-    "optimize-images": "node optimize-images.js"
+    "optimize-images": "node optimize-images.js",
     "test:e2e": "playwright test",
     "test:console": "playwright test e2e/smoke-console.spec.ts"
   },

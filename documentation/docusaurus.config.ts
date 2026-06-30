@@ -20,6 +20,8 @@ const config: Config = {
   customFields: {
     /** POST endpoint accepting JSON `{ "email": string }`. Set via env at build time for real integrations. */
     newsletterEndpoint: process.env.NEWSLETTER_ENDPOINT ?? '',
+    /** Soroban Cookbook Discord invite link. Set DISCORD_INVITE_URL at build time once the server is created. */
+    discordInviteUrl: process.env.DISCORD_INVITE_URL ?? '',
   },
 
   onBrokenLinks: 'throw',
@@ -44,6 +46,20 @@ const config: Config = {
       attributes: {
         name: 'theme-color',
         content: '#1e1e2e',
+      },
+    },
+    // Content-Security-Policy fallback for hosts that cannot set custom HTTP
+    // response headers (e.g. GitHub Pages). Hosts that can set real headers
+    // (Vercel via vercel.json, Netlify/Cloudflare Pages via static/_headers)
+    // should rely on those instead — a header-based CSP also covers
+    // `frame-ancestors`, which browsers ignore when delivered via <meta>.
+    // See DEPLOYMENT.md → Security Headers for the full policy rationale.
+    {
+      tagName: 'meta',
+      attributes: {
+        'http-equiv': 'Content-Security-Policy',
+        content:
+          "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.dicebear.com; font-src 'self' data:; connect-src 'self' https:; form-action 'self' https:; object-src 'none'; base-uri 'self'",
       },
     },
     // Preload the Inter variable font (latin woff2) — critical for above-the-fold text.
@@ -179,6 +195,11 @@ const config: Config = {
           label: 'Docs',
         },
         {
+          href: process.env.DISCORD_INVITE_URL ?? 'https://discord.gg/YNBu3jKEF',
+          label: 'Discord',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/Soroban-Cookbook/Soroban_Cookbook_online',
           label: 'GitHub',
           position: 'right',
@@ -201,8 +222,12 @@ const config: Config = {
           title: 'Community',
           items: [
             {
+              label: 'Soroban Cookbook Discord',
+              href: process.env.DISCORD_INVITE_URL ?? 'https://discord.gg/YNBu3jKEF',
+            },
+            {
               label: 'Stellar Discord',
-              href: 'https://discord.gg/stellardev',
+              href: 'https://discord.gg/YNBu3jKEF',
             },
             {
               label: 'Stack Overflow',
