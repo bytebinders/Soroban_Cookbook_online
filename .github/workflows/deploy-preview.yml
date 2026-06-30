@@ -5,7 +5,7 @@ on:
     types: [opened, synchronize, reopened, closed]
 
 permissions:
-  contents: write 
+  contents: write
   pull-requests: write
 
 jobs:
@@ -23,10 +23,10 @@ jobs:
         uses: oven-sh/setup-bun@v1
 
       - name: Install Dependencies
-        run: bun install
+        run: bun install --frozen-lockfile
 
-      - name: Build Documentation
-        run: bun run build
+      - name: Format, Lint, Typecheck, and Build
+        run: bun run format:check && bun run lint && bun run typecheck && bun run build
 
       - name: Deploy PR Preview
         uses: rossjrw/pr-preview-action@v1
