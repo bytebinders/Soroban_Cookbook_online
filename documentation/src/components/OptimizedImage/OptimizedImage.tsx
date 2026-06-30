@@ -35,8 +35,7 @@ export default function OptimizedImage({
 }: OptimizedImageProps) {
   const ext = src.split('.').pop()?.toLowerCase() ?? '';
   const isRaster = /\.(jpg|jpeg|png)$/i.test(src);
-  const webpSrc =
-    webpSrcProp ?? (isRaster ? src.replace(/\.(jpg|jpeg|png)$/i, '.webp') : null);
+  const webpSrc = webpSrcProp ?? (isRaster ? src.replace(/\.(jpg|jpeg|png)$/i, '.webp') : null);
   const mimeType = MIME_TYPES[ext] ?? `image/${ext}`;
 
   return (
