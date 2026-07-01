@@ -13,8 +13,10 @@ const sidebars: SidebarsConfig = {
         'getting-started/setup',
         'getting-started/setup-linux',
         'getting-started/setup-windows',
+        'getting-started/setup-macos',
         'getting-started/first-contract',
         'getting-started/building-and-compilation',
+        'getting-started/local-testing-and-simulation',
         'getting-started/deploy-testnet',
         'getting-started/deploy-mainnet',
         'getting-started/contract-interaction',
@@ -47,6 +49,7 @@ const sidebars: SidebarsConfig = {
         'patterns/authorization',
         'patterns/optimization-playbook',
         'patterns/lifecycle-upgrades',
+        'patterns/proposal-lifecycle',
       ],
     },
     {
@@ -54,6 +57,8 @@ const sidebars: SidebarsConfig = {
       label: 'Security',
       items: [
         'security/fundamentals',
+        'security/governance',
+        'security/defi-patterns',
       ],
     },
     {

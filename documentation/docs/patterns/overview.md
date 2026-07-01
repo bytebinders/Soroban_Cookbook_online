@@ -34,39 +34,67 @@ Error taxonomy, custom error patterns, error propagation strategies, and user-fa
 
 Comprehensive error handling patterns including Result types, fallback logic, graceful degradation, transaction rollback, and input validation. Essential for production-ready contracts.
 
-### [Token Standards & Implementation](/docs/patterns/token-standards)
+### [Staking with Reward Distribution](/docs/patterns/staking)
 
-<span class="sb-badge sb-badge--intermediate">Intermediate</span> <span class="sb-tag sb-tag--token">Token</span> <span class="sb-badge sb-badge--stable">Stable</span>
+<span class="sb-badge sb-badge--intermediate">Intermediate</span> <span class="sb-tag sb-tag--defi">DeFi</span> <span class="sb-badge sb-badge--stable">Stable</span>
 
-Comprehensive overview of Stellar/Soroban token standards. Understand the SEP-41 interface, the built-in Stellar Asset Contract (SAC), custom token patterns, and Non-Fungible Tokens (NFTs).
+Token staking with pro-rata reward distribution over epochs. Demonstrates lazy reward computation, epoch-based accounting, and efficient O(1) per-user storage without batch operations.
 
 ## Pattern Categories
 
-### 🪙 Token Standards
+### 🪙 [Token Standards](/patterns/tokens)
 
 <span class="sb-tag sb-tag--token">Token</span>
 
-- **[Token Standards & Implementation](/docs/patterns/token-standards)** — Comprehensive overview of SEP-41, SAC, custom tokens, and NFTs.
-- Basic token implementations
-- Token wrappers and vaults
-- Multi-token systems
+Explore fungible token standards, wrappers, and vault mechanisms for building robust token systems.
 
-### 💰 DeFi Patterns
+- Basic token implementations
+- Token wrappers and bridges
+- Multi-token vaults
+
+### 💰 [DeFi Patterns](/patterns/defi)
 
 <span class="sb-tag sb-tag--defi">DeFi</span>
 
-- Escrow contracts
-- Atomic swaps
-- Liquidity pools
-- Timelock mechanisms
+Build decentralized finance applications with liquidity pools, staking, atomic swaps, and lending protocols.
 
-### 🗳️ Governance
+- Liquidity pools (AMM)
+- **Staking contracts** with epoch-based rewards
+- Atomic swaps
+- Lending and borrowing
+
+### 🗳️ [Governance](/patterns/governance)
 
 <span class="sb-tag sb-tag--governance">Governance</span>
 
-- Simple voting systems
+Implement decentralized governance with voting systems, DAOs, and proposal mechanisms.
+
+- Voting systems
 - DAO implementations
-- Proposal mechanisms
+- Proposal factories
+- Token delegation
+
+### 🎨 [NFT Patterns](/patterns/nft)
+
+<span class="sb-tag sb-tag--nft">NFT</span>
+
+Create and manage non-fungible tokens with marketplaces and collection systems.
+
+- NFT minting and transfers
+- Marketplace contracts
+- Collection management
+- Royalty mechanisms
+
+### 🔧 [Utility & Infrastructure](/patterns/utility)
+
+<span class="sb-badge sb-badge--intermediate">Intermediate</span>
+
+Build essential utility contracts for multi-signature wallets, escrow, and fund management.
+
+- Multi-signature wallets
+- Time-locked contracts
+- Escrow services
+- Registry systems
 
 ### ⚡ Advanced Patterns
 

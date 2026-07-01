@@ -3,5 +3,15 @@ members = [
     "hello-world",
     "counter",
     "token-transfer",
+    "staking",
+    "simple-voting",
+    "simple-dao",
+    "upgradeable",
+    "authorization",
+    "error-handling",
+    "access-control",
+    "emergency-stop",
+    "htlc-swap",
+    "constant-product-amm",
 ]
 resolver = "2"

@@ -68,7 +68,7 @@ To create reproducible results, you must control your environment.
 <Tabs>
   <TabItem value="before" label="Before (O(n))" default>
 
-```rust
+```rust illustrative
 #[contracttype]
 pub struct Registry {
     pub users: Vec<Address>,
@@ -88,7 +88,7 @@ pub fn add_user(env: Env, user: Address) {
   </TabItem>
   <TabItem value="after" label="After (O(1))">
 
-```rust
+```rust illustrative
 // Use separate keys for each user.
 pub fn add_user(env: Env, user: Address) {
     let key = DataKey::User(user.clone());
@@ -117,7 +117,7 @@ Reading a 2KB struct costs twice as much gas as reading a 1KB struct, even if yo
 
 **Problem:** Accessing `env.storage()` multiple times for the same value in a single function call.
 
-```rust
+```rust illustrative
 // ❌ BAD: Multiple reads
 pub fn do_something(env: Env) {
     let admin = env.storage().instance().get::<_, Address>(&DataKey::Admin).unwrap();
