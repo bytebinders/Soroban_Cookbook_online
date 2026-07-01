@@ -34,6 +34,12 @@ Error taxonomy, custom error patterns, error propagation strategies, and user-fa
 
 Comprehensive error handling patterns including Result types, fallback logic, graceful degradation, transaction rollback, and input validation. Essential for production-ready contracts.
 
+### [Staking with Reward Distribution](/docs/patterns/staking)
+
+<span class="sb-badge sb-badge--intermediate">Intermediate</span> <span class="sb-tag sb-tag--defi">DeFi</span> <span class="sb-badge sb-badge--stable">Stable</span>
+
+Token staking with pro-rata reward distribution over epochs. Demonstrates lazy reward computation, epoch-based accounting, and efficient O(1) per-user storage without batch operations.
+
 ## Pattern Categories
 
 ### 🪙 [Token Standards](/patterns/tokens)
@@ -53,7 +59,7 @@ Explore fungible token standards, wrappers, and vault mechanisms for building ro
 Build decentralized finance applications with liquidity pools, staking, atomic swaps, and lending protocols.
 
 - Liquidity pools (AMM)
-- Staking contracts
+- **Staking contracts** with epoch-based rewards
 - Atomic swaps
 - Lending and borrowing
 
