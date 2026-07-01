@@ -1,0 +1,56 @@
+{
+  "resourceSizes": [
+    {
+      "resourceType": "script",
+      "budget": 300
+    },
+    {
+      "resourceType": "style",
+      "budget": 50
+    },
+    {
+      "resourceType": "image",
+      "budget": 200
+    },
+    {
+      "resourceType": "font",
+      "budget": 50
+    },
+    {
+      "resourceType": "total",
+      "budget": 600
+    }
+  ],
+  "resourceBudgets": [
+    {
+      "resourceType": "script",
+      "budget": 300
+    },
+    {
+      "resourceType": "style",
+      "budget": 50
+    }
+  ],
+  "timingBudgets": [
+    {
+      "metric": "first-contentful-paint",
+      "budget": 1500,
+      "description": "First Contentful Paint budget (mobile)"
+    },
+    {
+      "metric": "largest-contentful-paint",
+      "budget": 2500,
+      "description": "Largest Contentful Paint budget (mobile)"
+    },
+    {
+      "metric": "time-to-interactive",
+      "budget": 3500,
+      "description": "Time to Interactive budget (mobile)"
+    },
+    {
+      "metric": "cumulative-layout-shift",
+      "budget": 0.1,
+      "description": "Cumulative Layout Shift budget"
+    }
+  ]
+}

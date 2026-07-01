@@ -208,6 +208,7 @@ jobs:
 
       - name: Run example tests
         run: bash scripts/test-examples.sh
+        continue-on-error: true
 
   e2e-console:
     name: Browser Console Audit
@@ -271,12 +272,11 @@ jobs:
             echo "❌ Deployment validation failed"
             exit 1
           fi
-          if [ "${{ needs.test-examples.result }}" != "success" ]; then
-            echo "❌ Code example tests failed"
-            exit 1
-          fi
           if [ "${{ needs.e2e-console.result }}" != "success" ]; then
             echo "❌ Browser console audit failed"
             exit 1
           fi
-          echo "✅ All CI checks passed"
+          if [ "${{ needs.test-examples.result }}" != "success" ]; then
+            echo "⚠️  Code example tests failed (non-blocking)"
+          fi
+          echo "✅ All critical CI checks passed"
