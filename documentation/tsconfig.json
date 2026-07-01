@@ -6,5 +6,5 @@
     "baseUrl": ".",
     "types": ["bun-types"]
   },
-  "exclude": [".docusaurus", "build"]
+  "exclude": [".docusaurus", "build", "e2e", "node_modules", "playwright.config.ts"]
 }
