@@ -55,6 +55,8 @@ const sidebars: SidebarsConfig = {
       label: 'Security',
       items: [
         'security/fundamentals',
+        'security/governance',
+        'security/defi-patterns',
       ],
     },
     {
