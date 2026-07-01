@@ -99,7 +99,8 @@
 
   /* ── 5. Smooth caret rotation on expand/collapse ────────────────────────── */
   .menu__caret::before {
-    transition: transform var(--sb-motion-duration-fast, 120ms) var(--sb-motion-ease-standard, ease);
+    transition: transform var(--sb-motion-duration-fast, 120ms)
+      var(--sb-motion-ease-standard, ease);
   }
 
   /* ── 6. Search bar inside sidebar ──────────────────────────────────────── */

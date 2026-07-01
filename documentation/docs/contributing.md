@@ -143,6 +143,78 @@ Before you hit "Submit", make sure you've checked these off:
 - [ ] I have followed the project's styling and coding conventions.
 - [ ] No linting or formatting errors remain.
 
+### ♿ Accessibility (A11y) Checklist
+
+All UI changes must meet **WCAG 2.1 Level AA** standards. Use this checklist for any component, page, or styling changes:
+
+#### Keyboard Navigation
+- [ ] All interactive elements (buttons, links, inputs) are reachable via Tab key.
+- [ ] Focus order is logical and follows visual left-to-right, top-to-bottom flow.
+- [ ] Focus indicators are visible (2px outline with clear contrast).
+- [ ] No keyboard traps (user cannot tab away from a component without using Escape).
+- [ ] **If adding modals/dropdowns:** Verify focus is trapped inside when open, returns to trigger on close.
+
+#### ARIA Attributes
+- [ ] Semantic HTML is used where possible (e.g., `<button>`, `<nav>`, `<main>`, not `<div onclick>`).
+- [ ] Interactive components have appropriate `role`, `aria-label`, or `aria-labelledby`.
+- [ ] Live regions use `role="alert"` with `aria-live="assertive"` for errors; `aria-live="polite"` for notices.
+- [ ] Icon-only buttons have `aria-label` describing the action.
+- [ ] Toggle buttons include `aria-pressed="true"` or `aria-pressed="false"`.
+- [ ] Disabled elements have `aria-disabled="true"` in addition to `disabled` attribute.
+
+#### Color & Contrast
+- [ ] Text meets **4.5:1 contrast ratio** (WCAG AA) for normal text, **3:1 for large text** (18pt+).
+- [ ] **Do not rely on color alone** to convey information (e.g., error messages must have icon + text, not just red color).
+- [ ] Test with high contrast mode and in browser DevTools' contrast checker.
+- [ ] Dark mode variants have the same contrast ratios as light mode.
+
+#### Images & Icons
+- [ ] Every `<img>` has descriptive `alt` text (e.g., `alt="Stellar logo"`, not `alt="image"`).
+- [ ] Decorative icons have `aria-hidden="true"` and `focusable="false"`.
+- [ ] Icon buttons use `<Icon aria-label="..." />` with a descriptive label.
+- [ ] SVGs with semantic meaning have `role="img"` and `aria-label`.
+
+#### Motion & Animations
+- [ ] Animations respect `prefers-reduced-motion: reduce` media query.
+- [ ] Avoid auto-playing videos or animations; provide a pause/play control.
+- [ ] No parallax effects or rapidly flashing content (>3 Hz).
+
+#### Forms & Inputs
+- [ ] All form inputs have associated `<label>` elements (via `htmlFor` or wrapping).
+- [ ] Error messages are linked to inputs via `aria-describedby`.
+- [ ] Required fields are marked with `aria-required="true"` or use semantic `required` attribute.
+- [ ] Form submission provides clear error summary and focus management.
+
+#### Skip Links & Navigation
+- [ ] Skip-to-content link is present and functional (jumps to main content).
+- [ ] Main navigation is keyboard accessible and properly labeled (e.g., `<nav aria-label="Main navigation">`).
+- [ ] Search component is keyboard accessible and screen-reader friendly.
+
+#### Screen Reader Testing
+- [ ] Test with at least one screen reader:
+  - **Windows:** NVDA (free, recommended) or JAWS
+  - **macOS:** VoiceOver (built-in)
+  - **Online:** WAVE or axe DevTools browser extension
+- [ ] Page structure is logical when read aloud (headings, landmarks, list items).
+- [ ] Form labels and error messages are announced correctly.
+- [ ] Interactive states (e.g., selected tabs, expanded dropdowns) are announced.
+
+#### Manual Testing Checklist
+- [ ] Tab through the page end-to-end with keyboard only (no mouse).
+- [ ] Verify focus indicators are clear at each step.
+- [ ] Test skip-link functionality by pressing Tab immediately after page load.
+- [ ] Open DevTools → Colors/Contrast tool and verify all text.
+- [ ] Enable high contrast mode and ensure layout remains usable.
+- [ ] Reduce zoom to 200% and verify no horizontal overflow or text cutoff.
+
+#### Automated Testing
+- [ ] Run `bun run lint` (includes ESLint checks for JSX a11y patterns).
+- [ ] Use browser extensions to scan:
+  - **axe DevTools** (free): https://www.deque.com/axe/devtools/
+  - **WAVE** (free): https://wave.webaim.org/extension/
+  - **Lighthouse** (Chrome DevTools > Lighthouse tab)
+- [ ] Fix any reported violations before submitting PR.
+
 ---
 
 ## 🔍 Review Expectations
