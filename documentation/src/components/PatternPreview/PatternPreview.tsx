@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import PatternCard from '../cards/PatternCard';
 import styles from './PatternPreview.module.css';
+import { sanitizeUrl } from '@site/src/utils/sanitizeUrl';
 
 export interface Pattern {
   id: string;
@@ -79,7 +80,10 @@ export default function PatternPreview({
 
   const _handlePatternClick = (pattern: Pattern) => {
     if (pattern.href) {
-      window.location.href = pattern.href;
+      const safe = sanitizeUrl(pattern.href);
+      if (safe !== '#') {
+        window.location.href = safe;
+      }
     }
   };
 
@@ -173,7 +177,7 @@ export default function PatternPreview({
                   description={pattern.description}
                   tag={pattern.tag}
                   code={pattern.code}
-                  href={pattern.href}
+                  href={pattern.href ? sanitizeUrl(pattern.href) : undefined}
                   icon={pattern.icon}
                 />
 
